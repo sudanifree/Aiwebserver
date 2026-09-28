@@ -1,5 +1,6 @@
 from io import BytesIO
 from pathlib import Path
+import tarfile
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -60,6 +61,28 @@ class DashboardApiTests(unittest.TestCase):
         response = self.client.post("/api/scan")
 
         self.assertEqual(response.status_code, 400)
+
+    def test_scan_downloads_finds_regular_and_archived_files(self):
+        downloads = Path(self.temp_dir.name) / "downloads"
+        downloads.mkdir()
+        (downloads / "suspect.php").write_bytes(b"<?php shell_exec($_GET['cmd']);")
+        archive_path = downloads / "source.tar.gz"
+        member_data = b"<?php eval(base64_decode($payload));"
+        with tarfile.open(archive_path, "w:gz") as archive:
+            member = tarfile.TarInfo("nested/payload.php")
+            member.size = len(member_data)
+            archive.addfile(member, BytesIO(member_data))
+
+        with patch("app.DOWNLOADS_ROOT", downloads):
+            response = self.client.post("/api/scan-downloads")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json["scanned"], 2)
+        self.assertEqual(response.json["review"], 2)
+        status = self.client.get("/api/status").json
+        names = {scan["filename"] for scan in status["scans"]}
+        self.assertIn("downloads/suspect.php", names)
+        self.assertIn("downloads/source.tar.gz!/nested/payload.php", names)
 
 
 if __name__ == "__main__":

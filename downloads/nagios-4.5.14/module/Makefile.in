@@ -1,0 +1,49 @@
+###################################
+# Makefile for NEB examples
+#
+###################################
+
+
+# Source code directories
+srcdir=@srcdir@
+
+SRC_INCLUDE=@top_srcdir@/include
+
+BLD_INCLUDE=@top_builddir@/include
+BLD_LIB=@top_builddir@/lib
+
+
+CC=@CC@
+MOD_CFLAGS=@MOD_CFLAGS@
+CFLAGS=-I@builddir@ -I$(SRC_INCLUDE) -I@top_srcdir@ -I$(BLD_INCLUDE) -I$(BLD_LIB)  @CFLAGS@ @DEFS@
+MOD_LDFLAGS=@MOD_LDFLAGS@
+LDFLAGS=@LDFLAGS@
+LIBS=@LIBS@
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+BINDIR=@bindir@
+INSTALL=@INSTALL@
+INSTALL_OPTS=@INSTALL_OPTS@
+COMMAND_OPTS=@COMMAND_OPTS@
+STRIP=@STRIP@
+
+CP=@CP@
+
+all:	helloworld.o
+
+helloworld.o: $(srcdir)/helloworld.c
+	$(CC) -I.. $(MOD_CFLAGS) $(CFLAGS) -o helloworld.o $(srcdir)/helloworld.c $(MOD_LDFLAGS) $(LDFLAGS) $(LIBS)
+
+clean:
+	rm -f helloworld.o
+	rm -f core *.o
+	rm -f *~ *.*~
+
+distclean: clean
+	rm -f Makefile
+
+devclean: distclean
+
+install:
+

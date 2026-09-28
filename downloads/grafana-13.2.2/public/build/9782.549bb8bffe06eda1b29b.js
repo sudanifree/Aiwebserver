@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkgrafana=self.webpackChunkgrafana||[]).push([[9782],{39782(t,e,s){s.r(e),s.d(e,{DEFAULT_TAG_COLORS:()=>o.s6,canonicalZoneName:()=>a.s$,findTimeZoneAt:()=>a.SC,getTimeZonesAt:()=>a.Gg,useObservable:()=>n.J});var n=s(91069),o=s(84335),a=s(7046)}}]);

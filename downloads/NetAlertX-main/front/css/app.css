@@ -1,0 +1,2959 @@
+/* -----------------------------------------------------------------------------
+#  NetAlertX
+#  Open Source Network Guard / WIFI & LAN intrusion detector
+#
+#  app.css - Front module. CSS styles
+#-------------------------------------------------------------------------------
+#  Puche 2021 / 2022+ jokob             support@netalertx.com                GNU GPLv3
+----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+   Global Variables
+----------------------------------------------------------------------------- */
+:root {
+    --color-white: #fff;
+    --color-aqua: #00c0ef;
+    --color-lightblue: #3c8dbc;
+    --color-blue: #0060df;
+    --color-green: #00a65a;
+    --color-yellow: #f39c12;
+    --color-red: #dd4b39;
+    --color-gray: #8c8c8c;
+    --color-darkgray: #3f3e3e;
+    --color-lightgray: #bec5cb;
+    --color-black: #000;
+}
+
+.input-group .checkbox
+{
+    margin-left: 5px;
+}
+
+h5
+{
+    font-size: medium;
+}
+
+a[target="_blank"] {
+    position: relative;
+    display: inline-block; /* Needed for positioning */
+    padding-right: 0.55em;    /* Space for the icon */
+  }
+
+  a[target="_blank"]::after {
+    content: '↗';
+    position: absolute;
+    top: 0;
+    right: 0.3em;
+    font-size: 0.6em;
+    line-height: 1;
+  }
+
+  .select2 .hover-node-info::after {
+    padding-left: 1px ;
+  }
+
+  /* .node-standard-device .netNodeText::after
+  {
+    right: -7px;
+    top: 1px;
+  } */
+
+/* .select2-container--default .select2-selection--multiple .select2-selection__choice
+{
+    padding-right: 15px !important;
+} */
+
+.hoverHighlight
+{
+    opacity: 0.7;
+}
+.hoverHighlight:hover
+{
+    opacity: 1;
+}
+
+[data-is-valid="0"] {
+    /* border: 1px solid red;  */
+    background-color: #ff4b4b !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Helper Classes
+----------------------------------------------------------------------------- */
+
+.pointer
+{
+    cursor: pointer;
+}
+
+.question
+{
+    cursor: help;
+}
+
+.alignRight
+{
+    text-align: end;
+    float: inline-end;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Text Classes
+----------------------------------------------------------------------------- */
+.logs, .log-area textarea
+{
+  color:white !important;
+  background-color: black !important;
+  font-family: 'Courier New', monospace;
+  font-size: .85em;
+  cursor: pointer !important;
+}
+.logs-row textarea
+{
+    width: 100%;
+}
+#tab_Logging .actions{
+    display:contents;
+    position: relative;
+    padding: 0.4em
+
+}
+
+#tab_Logging .actions .toggle{
+
+    margin: 0.5em;
+    height: 3em;
+}
+
+.logs-row .button{
+    margin: 2px;
+}
+.logs-row
+{
+    align-content: center;
+    width: 100%;
+    margin: 5px;
+}
+.logs-size
+{
+    font-size: 14px;
+}
+.log-area
+{
+    padding: 3px;
+    width:100%;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: #606060;
+}
+.logs-small
+{
+    height: 150px;
+}
+.log-file
+{
+
+    font-size: 20px;
+}
+.log-purge
+{
+    width: 90px;
+    float:right;
+}
+.span-padding
+{
+    padding:10px;
+}
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-gray50 {
+    color: #808080;
+}
+
+.text-gray-20 {
+    color: rgba(192, 192, 192, 20%);
+}
+
+.text-aqua-20 {
+    color: rgba(0, 192, 239, 20%);
+}
+
+.text-green-20 {
+    color: rgba(0, 166, 90, 20%);
+}
+
+.text-yellow-20 {
+    color: rgba(243, 156, 18, 20%);
+}
+
+.text-red-20 {
+    color: rgba(221, 75, 57, 20%);
+}
+
+.no-border {
+    border: none;
+}
+
+@media (min-width: 768px) {
+
+    .hideOnBigScreen{
+        display: none;
+    }
+}
+
+@media (max-width: 767px) { /* on mobile */
+
+    .hideOnMobile{
+        display: none;
+    }
+}
+
+
+/* -----------------------------------------------------------------------------
+   Main Sections
+----------------------------------------------------------------------------- */
+.content-header h1{
+    font-size:24px;
+}
+
+.content-header {
+    padding-top: 5px;
+}
+
+.content-header>.breadcrumb {
+    background: transparent;
+}
+
+.content {
+    padding-bottom: 0px;
+}
+
+.box-body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.main-footer {
+    padding: 5px;
+    z-index: 10000;
+    position: inherit; 
+}
+
+.header-server-time
+{
+    padding:8px;
+    color: white;
+}
+
+.header-status
+{
+    padding:0px;
+}
+.header-status:hover
+{
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.unread-notifications-bell
+{
+    position: absolute;
+    top: 3px;
+    margin-left: 15px;
+    display: none;
+
+}
+
+.navbar-custom-menu .bg-yellow
+{
+    color: white !important;
+}
+
+.header-status-locked-db
+{
+    width: 25px;
+    height: 25px;
+    color: red;
+    position: absolute;
+    top: 12px;
+    right: -17px;
+    display: none;
+}
+
+.navbar-nav > li > a
+{
+    line-height: 30px;
+}
+
+body
+{
+    background-image: url('../img/background.png');
+}
+
+/* -----------------------------------------------------------------------------
+   Customized Main Menu
+----------------------------------------------------------------------------- */
+
+.NetAlertX-logo
+{
+    border-color:transparent !important;
+    height: 50px !important;
+    width: 50px !important;
+    margin-top:15px !important;
+    border-radius: 1px !important;
+}
+
+.main-header .logo {
+    width: 150px;
+}
+
+.fixed .main-header
+{
+    z-index: 10001;
+}
+
+.navbar-nav > .user-menu .user-image
+{
+  margin-top: 3px;
+}
+
+.main-header>.navbar {
+    margin-left: 150px;
+}
+
+.main-sidebar,
+.left-side {
+    width: 150px;
+    z-index: 10000;
+}
+
+.content-wrapper,
+.right-side,
+.main-footer {
+    margin-left: 150px;
+}
+
+@media (max-width: 767px) {
+    .main-header .logo {
+        width: 100%;
+        display:none;
+    }
+
+    .main-header .navbar {
+        margin: 0;
+    }
+
+    .content-wrapper,
+    .main-footer {
+        margin-left: 0px;
+    }
+    .fixed .content-wrapper, .fixed .right-side {
+        padding-top: 50px;
+    }
+    .main-sidebar {
+        padding-top: 50px;
+    }
+    .content-header #pageTitle{
+        display: none;
+    }
+}
+
+.sidebar-open .content-wrapper,
+.sidebar-open .main-footer {
+    -webkit-transform: translate(150px, 0);
+    -ms-transform: translate(150px, 0);
+    -o-transform: translate(150px, 0);
+    transform: translate(150px, 0)
+}
+
+.skin-yellow-light .sidebar-menu>li>a:hover {
+    background: #f0f0f0;
+    border-left-color: rgb(243, 156, 18);
+}
+
+.skin-yellow-light .sidebar-menu>li.active>a {
+    background: #e0e0e0;
+    border-left-color: rgb(243, 156, 18);
+}
+
+/* -----------------------------------------------------------------------------
+   Customized Boxes
+----------------------------------------------------------------------------- */
+.box-transparent {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.networkTable .nav-tabs-custom
+{
+    margin-bottom: 0px;
+}
+
+.plugin-content #tabs-location .nav-tabs-custom > .nav-tabs > li
+{
+    display: contents;
+}
+
+.plugin-content .left-nav
+{
+    display: contents;
+}
+
+.pa-small-box-2 .inner h3 {
+    margin-left: 0em;
+    margin-bottom: 1.3em;
+}
+
+.pa-small-box-footer {
+    color: white !important;
+    font-size: 18px;
+}
+
+/* -------------------------------------------------------------------------- */
+.pa-small-box-aqua {
+    /* border-top: 3px solid #00c0ef; */
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.pa-small-box-aqua .inner {
+    color: #00c0ef;
+    background-color: #FFFFFF;
+}
+
+.pa-small-box-aqua .inner h3 {
+    margin-left: 0.5em;
+}
+
+.pa-small-box-aqua .icon {
+    color: #00c0ef;
+}
+
+/* -------------------------------------------------------------------------- */
+.pa-small-box-green {
+    /* border-top: 3px solid #00a65a; */
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.pa-small-box-green .inner {
+    color: #00a65a;
+    background-color: #FFFFFF;
+}
+
+.pa-small-box-green .inner h3 {
+    margin-left: 0.5em;
+}
+
+.pa-small-box-green .icon {
+    color: #00a65a;
+}
+
+/* -------------------------------------------------------------------------- */
+.pa-small-box-yellow {
+    /* border-top: 3px solid #f39c12; */
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.pa-small-box-yellow .inner {
+    color: #f39c12;
+    background-color: #FFFFFF;
+}
+
+.pa-small-box-yellow .inner h3 {
+    margin-left: 0.5em;
+}
+
+.pa-small-box-yellow .icon {
+    color: #f39c12;
+}
+
+/* -------------------------------------------------------------------------- */
+.pa-small-box-red {
+    /* border-top: 3px solid #dd4b39; */
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.pa-small-box-red .inner {
+    color: #dd4b39;
+    background-color: #FFFFFF;
+}
+
+.pa-small-box-red .inner h3 {
+    margin-left: 0.5em;
+}
+
+.pa-small-box-red .icon {
+    color: #dd4b39;
+}
+
+/* -------------------------------------------------------------------------- */
+.pa-small-box-gray {
+    /* border-top: 3px solid #a0a0a0; */
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.pa-small-box-gray .inner {
+    color: #a0a0a0;
+    background-color: #FFFFFF;
+}
+
+.pa-small-box-gray .inner h3 {
+    margin-left: 0.5em;
+}
+
+.pa-small-box-gray .icon {
+    color: #a0a0a0;
+}
+
+.small-box {
+  margin-bottom: 15px !important;
+  float: left;
+  width: 100%;
+  border-radius: 4px;
+  border-top: 0px;
+}
+
+#TopSmallBoxes .small-box {
+    height: 3em;
+}
+
+.small-box .icon
+{
+  font-size: 2.2em !important;
+  float: right;
+  top: 0;
+}
+.small-box .small-box-text
+{
+    float:left;
+    font-size: x-large;
+    margin-top: -0.3em;
+}
+
+.small-box .infobox_label
+{
+    font-size: larger;
+    float: right;
+    text-align: center;
+    z-index: 1;
+}
+
+hr
+{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/* -----------------------------------------------------------------------------
+   Customized Box Borders
+----------------------------------------------------------------------------- */
+/* .box.box-aqua {
+    border-top-color: #00c0ef;
+}
+
+.box.box-green {
+    border-top-color: #00a65a;
+}
+
+.box.box-yellow {
+    border-top-color: #f39c12;
+}
+
+.box.box-red {
+    border-top-color: #dd4b39;
+} */
+
+/* -----------------------------------------------------------------------------
+   Custom Border
+----------------------------------------------------------------------------- */
+.bottom-border-aqua {
+    border-bottom-color: #00c0ef;
+    border-bottom-style: solid;
+    border-bottom-width: 3px
+}
+
+.bottom-border-primary {
+    border-bottom-color: var(--color-lightblue);
+    border-bottom-style: solid;
+    border-bottom-width: 3px
+}
+
+/* -----------------------------------------------------------------------------
+   Customized Tabs
+----------------------------------------------------------------------------- */
+.nav-tabs-custom {
+    background: transparent;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 10px;
+}
+
+/* -----------------------------------------------------------------------------
+   Customized Menu dropdown
+----------------------------------------------------------------------------- */
+.dropdown-menu {
+    max-height: 250px;
+    overflow-x: hidden;
+    box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* -----------------------------------------------------------------------------
+   Default Table config
+----------------------------------------------------------------------------- */
+.table>tbody>tr>td {
+    padding: 4px;
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    background-color: #FFFFD0;
+}
+
+.dataTables_info,
+.dataTables_paginate,
+.dataTables_length,
+.dataTables_filter {
+    color: #B0B0B0;
+}
+
+/* -----------------------------------------------------------------------------
+   Customized buttons
+----------------------------------------------------------------------------- */
+.pa-btn {
+    padding: 10px;
+    min-width: 90px;
+}
+
+.pa-btn-delete {
+    border-color: #ffb060;
+    background-color: #ffd080;
+}
+
+.pa-btn-delete:hover {
+    border-color: #ffb060;
+    background-color: #ffb060;
+}
+
+.pa-btn-records,
+.pa-btn-records:hover,
+.pa-btn-records:focus,
+.pa-btn-records:active {
+    border-color: #ddd;
+    background-color: #f4f4f4;
+    cursor: default;
+}
+
+.btn-outline:hover
+{
+  border: 1px solid var(--color-black);
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.btn-outline
+{
+  border: 1px solid var(--color-darkgray);
+  background-color: var(--color-white);
+  color: var(--color-darkgray);
+}
+
+/* -----------------------------------------------------------------------------
+   Customized Full Calendar
+----------------------------------------------------------------------------- */
+.fc h2 {
+    font-size: 20px;
+}
+
+.fc-weekend {
+    background-color: #FFF0E0;
+}
+
+.fc-normaldays {
+    background-color: #FF0000;
+}
+
+.fc-sat {
+    background-color: #FFF0E0;
+}
+
+.fc-sun {
+    background-color: #FFF0E0;
+}
+
+.fc-resized-row {
+    height: 26px !important;
+}
+
+.fc-transparent-border {
+    border-Color: transparent !important;
+}
+
+.tooltip-inner {
+    background-color: #606060;
+    color: White;
+}
+
+.tooltip.right .tooltip-arrow {
+    border-right: 5px solid #606060;
+}
+
+.fc-ltr .fc-time-grid .fc-event-container {
+  margin: 0 2.5% 0 0px !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Notification float banner
+----------------------------------------------------------------------------- */
+.notification_modal {
+
+    text-align: center;
+    left: 0;
+    right: 0;
+    width: 80%;
+    z-index: 9999;
+    position: fixed;
+    top: 100px;
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal
+{
+    z-index: 12000;
+}
+
+.modal_green
+{
+    color: #258744;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.modal_red
+{
+    color: #d41001;
+    background-color: #e2acaa;
+    border-color: #d41001;
+}
+
+.modal_grey
+{
+    color: white;
+    background-color: darkgrey;
+    border-color: #000000;
+}
+
+/* ticker setup */
+.ticker-li
+{
+    width: 40%;
+}
+
+#ticker_announcement_plc
+{
+
+    /* height: 50px; */
+    overflow: hidden;
+    width: 65%;
+    position: absolute;
+    left: 40px;
+    top: 15px;
+}
+
+@media (max-width: 1500px) and (min-width: 1101px) {
+    #ticker_announcement_plc {
+        width: 45%; /* Width for screen sizes between 1100px and 730px */
+    }
+}
+
+@media (max-width: 1100px) and (min-width: 801px) {
+    #ticker_announcement_plc {
+        width: 30%; /* Width for screen sizes between 1100px and 730px */
+    }
+}
+
+@media (max-width: 800px) {
+    #ticker_announcement_plc {
+        width: 25%; /* Width for screen sizes less than 730px */
+    }
+}
+
+#ticker-message a
+{
+    color:#3200bb;
+    text-decoration: underline;
+}
+
+#ticker-message
+{
+    color:#FFFFFF;
+}
+
+#ticker_announcement_plc:hover .ticker_announcement {
+    animation-play-state: paused;
+  }
+
+@keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-150%);
+    }
+  }
+
+.ticker_announcement {
+    text-align: center;
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+    cursor: default;
+}
+
+/* maintenance buttons */
+
+#file-check-list{
+    display: block;
+}
+
+.file-checking .icon-wrap{
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.file-checking .icon-wrap i{
+    position: absolute;
+    font-size: xx-large;
+    right: 0;
+    top: 0;
+    opacity: 0.2;
+}
+
+.file-checking .file-name-wrap{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    padding: 5px;
+}
+
+.file-checking{
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.dbtools-button {
+    display: inline-block;
+    width: 160px;
+    height: 60px;
+    white-space: normal;
+    word-wrap: break-word;
+    font-size: 16px;
+    padding: 4px;
+}
+
+.db_info_table_cell:nth-child(1) {
+    background: white
+}
+
+.db_info_table_cell:nth-child(2) {
+    background: white
+}
+
+.db_tools_table_cell_a:nth-child(1) {
+    background: white
+}
+
+.db_tools_table_cell_a:nth-child(2) {
+    background: white
+}
+.db_tools_table_cell_b:nth-child(1) {
+    background: white
+}
+
+.db_tools_table_cell_b:nth-child(2) {
+    background: white
+}
+.db_info_table {
+    display: table;
+    border-spacing: 0em;
+    font-weight: 400;
+    font-size: 15px;
+    width: 100%;
+    margin: auto;
+}
+
+.db_info_table_row {
+    display: table-row;
+    padding: 3px;
+}
+
+.db_info_table_cell {
+    display: table-cell;
+    padding: 3px;
+    padding-left: 10px;
+}
+
+.db_tools_table_cell_a {
+    display: table-cell;
+    text-align: center;
+    padding: 10px;
+    min-width: 180px;
+    width: 20%;
+    vertical-align: middle;
+}
+.db_tools_table_cell_b {
+    display: table-cell;
+    text-align: justify;
+    font-size: 16px;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+.ajax_scripts_loading {
+background-image: url('../img/Loading_Animation.gif');
+background-repeat: no-repeat;
+background-position: center;
+height: 50px;
+}
+
+.nav-tabs-custom .tab-content {
+  background-color: white;
+
+}
+
+@media (max-width: 767px) {
+    .nav-tabs-custom .tab-content {
+        overflow: scroll;
+      }
+    .infobox_label
+    {
+        display: none;
+    }
+    .small-box .icon
+    {
+        display: block !important;
+    }
+}
+
+.top_small_box_gray_text {
+  color: white !important;
+}
+
+.bg-gray {
+    background-color: #b2b6be !important;
+}
+
+.deviceSelector
+{
+    display: block;
+}
+
+.deviceSelector  input
+{
+    width: 100% !important;
+    display: inline-grid;
+}
+
+/* --------------------------------------------------------- */
+/*                         Presence                          */
+/* --------------------------------------------------------- */
+.presencenceKey
+{
+    float: right;
+}
+
+.presenceOnlineNow{
+    background-color: var(--color-green);
+}
+
+.presenceOnlinePast{
+    background-color: var(--color-blue);
+}
+
+.presenceOnlinePastMiss{
+    background-color: var(--color-yellow);
+}
+
+.presenceKeyBoxes
+{
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    /* background: #fff; */
+    opacity: .75;
+}
+
+#presencePage .helpIcon{
+    top: 2px;
+    display: initial;
+    font-size: x-small;
+}
+
+.calendarHelpIcon{
+    display: block;
+    position: absolute;
+    font-size: x-small;
+    top: 5px;
+}
+
+/* --------------------------------------------------------- */
+/*                         report                            */
+/* --------------------------------------------------------- */
+
+#notifications
+{
+    display: flex;
+}
+
+/* The wrapper above is a flex container, so the content section shrinks to
+   its content width unless stretched; make it span the full page like the
+   other Monitoring pages (#1762). */
+#notifications .content
+{
+    width: 100%;
+}
+
+#notificationData
+{
+    margin-bottom: 10px;
+}
+
+#notifications .notification-buttons{
+    margin: 10px;
+    padding: 10px;
+}
+#notifications .notification-box{
+    min-height: 90vh;
+}
+
+
+#notificationData textarea{
+    width: 100%;
+}
+
+#notificationData pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }
+
+/* --------------------------------------------------------- */
+/*                          settings                         */
+/* --------------------------------------------------------- */
+
+@media (max-width: 767px) { /* on mobile */
+    /* hide on mobile */
+    .setting_description {
+      /* color: red; */
+      display: none;
+    }
+    /* .setting_input{
+        width:70%;
+
+    }
+    .setting_name
+    {
+        width:30%;
+    } */
+  }
+
+@media (min-width: 768px) {
+.setting_description {
+    /* color: green; */
+    display: block;
+}
+/* .setting_input{
+    width:40%;
+
+}
+.setting_name
+{
+    width:19%;
+} */
+}
+
+/* Hide unusable buttons on the settings page for the NEWDEV plugin*/
+#settingsPage #add_option_NEWDEV_devGroup,
+#settingsPage #add_option_NEWDEV_devLocation,
+#settingsPage #add_option_NEWDEV_devOwner,
+#settingsPage #copy_icons_NEWDEV_devIcon,
+#settingsPage #add_icon_NEWDEV_devIcon,
+#settingsPage #add_option_NEWDEV_devSite,
+#settingsPage #add_option_NEWDEV_devType
+{
+    display: none;
+}
+
+
+
+#settingsPage
+{
+    display: grid;
+    margin-top: 50px;
+    padding-top: 0px;
+}
+
+
+#settingsPage .small-box .inner .card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: white;
+}
+
+
+.settingswrap
+{
+    margin-bottom: 100px;
+    padding-top: 0px;
+}
+
+.settingswrap .metadata
+{
+    display: none;
+}
+
+.settingswrap .enabled-disabled-icon
+{
+    float: right;
+}
+
+.padding-bottom
+{
+    padding-bottom: 100px;
+}
+
+.settings-group
+{
+    font-size: 20px;
+    padding-top: 7px;
+    padding-bottom: 9px;
+}
+
+.overview-section .small-box  .icon
+{
+    font-size: 38px;
+    top:0px;
+}
+
+
+.settings-group i{
+    font-size: 16px;
+}
+
+.overview-group
+{
+    font-size: 20px;
+    padding-top: 7px;
+    padding-bottom: 9px;
+    margin-left: -20px;
+
+}
+
+.overview-group i{
+    font-size: 16px;
+}
+
+
+#settingsPage .table_row {
+    padding: 3px;
+    /* width:100%; */
+    /* display: flex; */
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: #606060;
+}
+
+.table_cell {
+    float:left;
+    padding: 3px;
+    padding-left: 10px;
+}
+
+
+
+.setting_name
+{
+   /* width:19%; */
+    font-weight: 300;
+}
+
+
+.myhidden
+{
+    display:none !important;
+}
+
+.center
+{
+    margin: 0;
+    position: relative;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.top-margin
+{
+    margin-top: 50px;
+}
+
+/* Settings */
+
+#settingsPage .overview-setting-value{
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: smaller;
+}
+
+.overview-setting-value-wrap
+{
+    padding-left: 1px;
+    text-overflow: clip ;
+    overflow: hidden;
+}
+
+#settingsPage .small-box
+{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#settingsPage .small-box  .inner
+{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#settingsPage .panel-title{
+    /* display: inline-block; */
+    /* width: 120px; */
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.padding-5px
+{
+    padding: 5px;
+}
+
+.text-overflow-hidden
+{
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+
+.settings_content {
+    padding: 10px;
+    /* background-color: #272c30; */
+    margin: 10px;
+
+}
+#settingsPage .panel-heading:hover{
+    background-color: #e8e8e8;
+}
+
+.settings-expand-icon {
+    font-size: medium;
+    /* background-color: #272c30; */
+    margin: 10px;
+
+}
+
+.settings_content input[type=checkbox]
+{
+    width: auto
+}
+
+.override{
+    padding: 5px;
+}
+
+.override .override-text
+{
+    float:left;
+    width: 80%;
+}
+
+.override .override-check
+{
+    float:left;
+    width: 20%;
+}
+
+input[readonly],
+textarea[readonly],
+.form-control[readonly] {
+    background-color: #f4f6f8;
+    border-color: #d2d6de;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+  .interactable-option:hover::before {
+    opacity: 1;
+}
+
+  .interactable-option::before {
+    content: '1x 📝 | 2x 🚮';
+    position: sticky;
+    right: 0px;
+    top: 0;
+    color: white;
+    float: right;
+    background-color: rgb(0, 0, 0);
+    transition: opacity 0.5s;
+    opacity: 0.1;
+    border-radius: 3px;
+}
+
+.interactable-option:hover {
+    transition: background-color 2s;
+    cursor: pointer;
+}
+
+.settingsImportedTimestamp
+{
+    padding: 25px;
+}
+
+.settingsSearchWrap
+{
+    /* padding:10px; */
+    /* display: flex; */
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically */
+    /* height: 60px;             */
+}
+
+.settings-sticky-bottom-section {
+    position: fixed;
+    z-index: 999;
+    /* background-color: #5B5B66; */
+    /* opacity: 0.8; */
+    bottom: 30px;
+    border-radius: 5px;
+    /* margin:1px; */
+    /* border-width: 1px;
+    border-style: solid;
+    border-color: inherit; */
+    /* width: 87%; */
+    padding: 10px;
+  }
+
+  .settings-sticky-bottom-section:hover {
+    border-color: #258744;
+  }
+
+.settings-sticky-bottom-section .form-group
+{
+    margin-bottom: 0px;
+}
+
+.clear-filter
+{
+    opacity: 0.5;
+    cursor: pointer;
+    width: 14px;
+    position: absolute;
+    right: -6px;
+    top: 13px;
+
+}
+
+.clear-filter:hover
+{
+    opacity: 1;
+}
+
+.saveSettingsWrapper button
+{
+    width:70%;
+    /* margin-top:20px; */
+    margin-left:15%;
+    /* margin-bottom:20px; */
+}
+
+#settingsPage .select2-selection
+{
+    width: initial;
+    display: inline-block;
+}
+
+#settingsPage  .form-control
+{
+    min-height: 42px;
+}
+
+#settingsPage  .select2-selection
+{
+    background-color: rgb(96, 96, 96);
+}
+#settingsPage  .select2-container
+{
+    width: 100% !important;
+}
+
+#settingsPage  .select2-container  .selection
+{
+    width: 100% !important;
+    display: inline-grid;
+}
+
+
+/* Basic style for the div elements */
+#settingsPage  .setting_overriden_by_env {
+    position: relative;
+    /* width: 300px;
+    height: 200px; */
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    z-index: 10;
+  }
+
+  /* Style for the overlay */
+  #settingsPage .setting_overriden_by_env::after {
+    content: "Overridden with ENV variable";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); /* semi-transparent black overlay */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    z-index: 11;
+  }
+
+/* ----------------------------------------------------------------- */
+/*                    Devices page                                   */
+/* ----------------------------------------------------------------- */
+
+
+#columnFilters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+    gap: 0.75em;
+    padding: 0.5em 0;
+    padding-top: 0;
+}
+
+#columnFilters::before,
+#columnFilters::after {
+    display: none !important;
+}
+
+.filter-group {
+    box-sizing: border-box;
+    padding: 0.4em;
+    margin: 0;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15em;
+    white-space: normal;
+}
+
+.filter-group label {
+    box-sizing: border-box;
+    margin: 0;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15em;
+    white-space: normal;
+    padding-left: 15px;
+    padding-right: 0px;
+}
+
+.filter-dropdown {
+    width: 100%;
+}
+.filter-group select {
+    margin-left: 15px;
+    padding-right: 0px;
+}
+
+.filter-dropdown
+{
+    width:7em
+}
+
+.modal-header .close
+{
+    display: flex;
+}
+
+.modal-title
+{
+    display: inline;
+}
+
+#iconList
+{
+    padding: 10px;
+    padding-bottom:30px;
+}
+
+.iconPreviewSelector:hover
+{
+    backdrop-filter: brightness(50%);
+}
+
+.iconPreviewSelector
+{
+    text-align: center;
+    padding: 15px;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.iconList
+{
+    display: flex;
+}
+
+.iconColumn
+{
+    max-height: 25px;
+}
+
+.iconPreviewSelector svg
+{
+    width:40px;
+    height: 40px;
+}
+
+.iconPreviewSelector i
+{
+    font-size: 30px;
+    height: 40px;
+}
+
+.iconPreview {
+    min-width: 40px;
+    /* display: inherit; */
+}
+
+.iconPreview svg{
+    min-width: 20px;
+    max-width: 20px;
+    margin-bottom: -3px;
+}
+
+
+.dummyDevice
+{
+    text-align: end;
+}
+
+#tableDevices .fab
+{
+    font-size: 1.2em;
+}
+
+#tableDevices .fa
+{
+    font-size: 1.0em;
+}
+
+#tableDevices tbody tr
+{
+    height: 1.5em;
+}
+
+#nextScanEta
+{
+    padding-left: 1.5em;
+}
+
+.info-icon-nav
+{
+    top: -6px;
+    position: absolute;
+    z-index: 1;
+    left: 4px;
+    font-size: smaller;
+}
+
+.drag
+{
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+#settingsPage .select2-container--default .select2-selection--multiple .select2-selection__choice,
+#maintenancePage .select2-container--default .select2-selection--multiple .select2-selection__choice
+{
+    background-color:#258744 !important;
+}
+.select2-container--default .select2-selection--multiple
+{
+    background-color:#ffffff !important;
+}
+
+.select2-container .select2-dropdown
+{
+    background-color:#ffffff !important;
+}
+
+.select2-container--default .select2-selection--multiple,
+.select2-container--default .select2-selection--single
+{
+    border-radius: 0px !important;
+    border-color: #d2d6de !important;
+    min-height: 42px;
+}
+
+
+.helpIconSmallTopRight{
+    position: absolute;
+    font-size: x-small;
+    margin-bottom: 6px;
+    margin-left: 3px;
+}
+
+.pageHelp{
+    position: absolute;
+    font-size: x-small;
+    margin-bottom: 6px;
+}
+
+#tableDevicesBox td svg, #tableDevicesBox td i{
+    height: 1em !important;
+}
+
+#TileCards .tile .inner
+{
+    color: white;
+}
+
+#dropdownIcon li svg, #dropdownIcon li i, .dropdownIcon li svg, .dropdownIcon li i, .icon-maxsize svg, .icon-maxsize i{
+    height: 1.5em !important;
+}
+
+
+#tableDevices .badge i
+{
+    height: 1em !important;
+}
+
+#panDetails .control-label{
+    text-align: left;
+}
+
+#panDetails .input-group {
+
+    min-height: 40px;
+}
+
+#devicePageInfoPlc
+{
+    display: none;
+    padding-top: 2em;
+    cursor: default;
+}
+
+.small-box:hover
+{
+    color: inherit;
+}
+
+/* ----------------------------------------------------------------- */
+/* Device details */
+/* ----------------------------------------------------------------- */
+
+.dataTables_length label .form-control, .dataTables_filter label .form-control
+{
+    float: none;
+}
+
+
+.form-inline .input-group
+{
+    width: 100%;
+}
+
+.input-group .actionIcon
+{
+    height: 2.4em;
+}
+
+.input-group .actionIcon:hover
+{
+    backdrop-filter: brightness(50%);
+    background-color: rgba(0, 0, 0, 0.2); /* darkens the background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+.devicePropAction
+{
+    width: 1.2em;
+    height: 1.2em;
+    display: inline-block;
+    padding: 0.1em;
+    margin: 0.1em;
+    /* transition: font-size 0.3s;*/
+}
+
+.devicePropAction:hover
+{
+    font-size: larger;
+    padding: 0em;
+    margin: 0em;
+
+}
+
+
+#panDetails .dataTables_wrapper .bottom div
+{
+    max-width: 34%;
+    display: block;
+    float:inline-end;
+    height: 2em;
+}
+
+#panDetails .dataTables_wrapper .bottom .dataTables_info
+{
+    float:inline-start;
+}
+
+#panDetails .dataTables_wrapper .bottom .dataTables_length
+{
+    padding: 0.3em;
+}
+/* #panDetails .dataTables_wrapper .bottom .paging_simple_numbers */
+
+
+#panDetails #NEWDEV_devCustomProps_label
+{
+    display: none;
+}
+
+#deviceDetailsEdit .select2-container--default .select2-selection--multiple .select2-selection__choice a
+{
+    color: #fff;
+}
+
+#deviceDetailsEdit .iconPreview svg
+{
+    height: 14px;
+}
+
+#deviceDetailsEdit .select2-container--default .select2-selection--multiple .select2-selection__choice
+{
+    height: 20px;
+}
+
+#deviceDetailsEdit .select2-container--disabled
+{
+    background-color: #606060;
+}
+
+#deviceDetailsEdit .select2-container--default .select2-selection--multiple .select2-selection__choice span
+{
+    font-size: 14px;
+}
+
+#deviceDetailsEdit .select2-selection
+{
+    width: initial;
+    display: inline-block;
+    min-height: 42px;
+}
+
+.form-group {
+  margin-bottom: 5px !important;
+}
+
+/* Remove the default Select2 chevron (the down arrow) */
+.select2-container .select2-selection__arrow b {
+    display: none !important;
+  }
+
+/* Add custom icon */
+.select2-container .select2-selection__arrow::after {
+    font-family: 'Font Awesome 6 Free';
+    content: "\f078"; /* fa-chevron-down */
+    font-weight: 700;
+    position: absolute;
+    top: 75%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+.custom-badge a
+{
+    color: #fff !important;
+    font-size: 14px;
+}
+.custom-badge
+{
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    border-style: solid;
+    padding: 0 5px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+#deviceDetailsEdit .form-control
+{
+    min-height: 42px;
+}
+
+.select2-selection--single .custom-chip
+{
+    margin-top: 11px;
+    display: flex;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered,
+.select2-container--default .select2-selection--single, .select2-selection .select2-selection--single
+{
+    padding: 0px 0px;
+    min-height: 42px;
+}
+
+/* .select2-container--default .select2-selection--single .select2-selection__rendered, */
+.select2-container--default .select2-selection--single
+{
+    /* color:initial !important; */
+    background-color:initial !important;
+}
+
+
+#deviceDetailsEdit .select2-container
+{
+    width: 100% !important;
+}
+
+#deviceDetailsEdit .select2-container  .selection
+{
+    width: 100% !important;
+    display: inline-grid;
+}
+
+/* ----------------------------------------------------------------- */
+/* MODAL popups */
+/* ----------------------------------------------------------------- */
+#modal-input-textarea
+{
+    width: 100%;
+}
+
+.modal-field-input
+{
+    margin: 4%;
+    width: 92%;
+}
+
+#modal-ok
+{
+    z-index: 11051; /*highest priority*/
+}
+
+#modal-form-plc
+{
+    display: grid;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 750px;
+    margin: 30px auto;
+  }
+}
+
+/* ----------------------------------------------------------------- */
+/* NETWORK page */
+/* ----------------------------------------------------------------- */
+
+.hide-node-names .node-name {
+    display: none;
+  }
+
+#toggleFilters
+{
+    display: block;
+    position: fixed;
+    padding-left: 32px;
+    padding-top: 10px;
+    background-color: inherit;
+    z-index: 3;
+    width: 190px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* AdminLTE overrides */
+.content-wrapper {
+    min-height: calc(100vh - 31px) !important;
+}
+
+#networkTree .box
+{
+    border-width:1px;
+    border-top-color:grey;
+    padding:0px;
+    margin:0px;
+    align-items:center;
+    border-radius:20px;
+    /* width:190px; Don't change, smaller causes line break in network view */
+    /* display:flex; */
+    flex-direction:column;
+    justify-content:center;
+    /* display: inline-grid; */
+}
+.helpIcon
+{
+    padding: 5px;
+    margin-left: 0px;
+    top: 47px;
+    position: absolute;
+    z-index: 5;
+}
+#networkTree .netNodeText
+{
+    position: absolute;
+}
+#networkTree .netPort
+{
+    float:left;
+    display:inline;
+    text-align: center;
+}
+
+#networkTree .portBckgIcon
+{
+    opacity: 0.3;
+    display: initial;
+    float: left;
+    width: 1em;
+}
+
+#networkTree
+{
+    margin-left: 16px;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+#networkTree .node-inner {
+    font-size: clamp(12px, 1rem, 18px);
+}
+
+#networkTree .netNodeText strong,
+#networkTree .spanNetworkTree {
+    font-size: inherit;
+}
+
+#networkTree .netIcon
+{
+    width: 25px;
+    float:left;
+    display:inline;
+    text-align: center;
+}
+
+#networkTree .netIcon svg
+{
+    height: 1.2em;
+    width: auto;
+}
+
+#hover-box
+{
+  background-color: #ffffff;;
+}
+
+#hover-box .iconPreview
+{
+    padding: 0px;
+    display: flex;
+}
+
+#hover-box .devName
+{
+    font-size: larger;
+    display: contents;
+}
+
+#hover-box b
+{
+    float: left;
+}
+
+#hover-box .line
+{
+    float: left;
+    width: 100%;
+}
+
+#hover-box span
+{
+    float: right;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+    max-width: 200px;
+}
+
+#networkTree .netCollapse
+{
+    position: absolute;
+    right: 0;
+    margin-right: -3px;
+}
+
+/* var(--color-aqua);
+--color-aqua: #00c0ef;
+--color-blue: #0060df;
+--color-green: #00a65a;
+--color-yellow: #f39c12;
+--color-red: #dd4b39; */
+
+#networkTree .node-inner.node-network-device:hover
+{
+    box-shadow: var(--color-aqua) 0px 0px 20px;
+}
+
+#networkTree .node-inner.node-standard-device:hover
+{
+    box-shadow: var(--color-gray) 0px 0px 10px;
+}
+
+#networkTree .network-hw-icon
+{
+    position: absolute;
+    margin-left: -0.4em;
+    opacity: 0.3;
+    margin-top: 0.1em;
+}
+
+#networkTree .highlightedNode
+{
+    /* border: solid; */
+    border-color:var(--color-lightblue);
+    box-shadow: var(--color-lightblue) 0px 0px 20px;
+}
+
+#networkTree .netStatus-Off-line i,
+#networkTree .netStatus-Off-line svg
+{
+    color: #dd4b39;
+}
+
+.spanNetworkTree {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.networkTable .nav-tabs li i, .networkTable .nav-tabs li svg {
+    padding: 3px;
+    height: 2em !important;
+    /* width: 2em !important; */
+    position: absolute;
+    /* z-index: 10; */
+    top: 0.3em;
+    /* margin-left: 0.2em; */
+}
+
+.networkTable
+{
+    padding-bottom: 1px;
+    z-index: 3;
+    position: relative;
+}
+
+.networkNodeTabHeaders .icon i
+{
+    padding-top: 8px !important;
+     padding-left: 6px !important;
+}
+
+.networkTable .box-body {
+    padding-top: 5px;
+}
+
+.networkTable .networkNodeTabHeaders a {
+    display: block;
+    height: 3em;
+}
+
+.networkTable .icon {
+    /* padding-left:2em; */
+    width:2em;
+    height:2em;
+    float: left;
+    /* background-color:red; */
+}
+
+.sort-btn {
+
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.networkNodeTabHeaders
+{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
+}
+
+
+
+@media (max-width: 767px) {
+
+    .networkNodeTabHeaders .node-name
+    {
+        display: none;
+    }
+    .dev-detail-tab-name
+    {
+        display: none;
+    }
+}
+
+/* ----------------------------------------------------------------- */
+/* EVENTS page */
+/* ----------------------------------------------------------------- */
+
+.eventsPeriodSelectWrap{
+    display: inline;
+    float: right;
+}
+
+.eventsPage #tableEventsTitle
+{
+    float: left ;
+}
+
+/* ----------------------------------------------------------------- */
+/* PLUGINS page */
+/* ----------------------------------------------------------------- */
+
+#tabs-location
+{
+    padding-right: 0px;
+}
+
+.plugin-filters
+{
+    margin: 7px;
+    margin-right: 7px;
+    margin-bottom: 9px;
+    padding-bottom: 8px;
+}
+
+.plugin-content
+{
+    padding-bottom: 0px;
+}
+
+.plugin-content .nav-tabs li a
+{
+    border-right-width: 0px;
+}
+
+#tabs-content-location-wrap
+{
+    min-height: 90vh;
+}
+
+#tabs-content-location textarea {
+    width: 100%;
+}
+
+.plugin-content .left-nav{
+    width: calc(100%);
+    padding-right: 0px;
+    z-index: 2;
+    background-color: inherit !important;
+}
+
+.plugin-content #tabs-content-location
+{
+    margin: 0px;
+    padding-top: 0;
+}
+
+.integrations-plugins .content
+{
+    display: table;
+    width: 100%;
+}
+
+.plugin-content .tab-content
+{
+    padding-top: 10px;
+}
+
+.plugins-description
+{
+    padding-top: 20px;
+    padding-left: 5px;
+}
+
+.pluginsCore .helpIcon
+{
+    margin-left: -15px;
+    font-size: x-small;
+}
+
+.pluginsCore .tab-content
+{
+    padding-left: 5px;
+}
+
+.pluginsCore .tab-content .row
+{
+    margin: 0px;
+}
+
+.plugin-obj-purge{
+    padding: 5px;
+}
+
+/*Hidden special button*/
+
+@media (max-width: 365px) {
+  #back-button {
+    display: none;
+  }
+}
+
+@media (max-width: 335px) {
+  #next-button {
+    display: none;
+  }
+}
+
+@media (max-width: 300px) {
+  #reload-button {
+    display: none;
+  }
+}
+
+@media (max-width: 300px) {
+  #fullscreen-button {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+    .header-server-time {
+      display: none;
+    }
+  }
+
+
+.textOverflow
+{
+    white-space: nowrap;        /* Prevent text from wrapping to a new line */
+    overflow: hidden;           /* Hide the overflowed text */
+    text-overflow: ellipsis;    /* Show ellipsis (...) */
+}
+
+.table-stretched
+{
+    min-width: -moz-available;
+    min-width: -webkit-fill-available;
+}
+
+.pluginBadge
+{
+    float: right;
+    margin-right: 10px;
+    opacity: 0.6;
+    margin-top: 4px;
+}
+
+.pluginBadgeWrap
+{
+    float: right;
+    display: ruby;
+    z-index: 1;
+    position: sticky;
+    margin-top: 4px;
+}
+
+/* -----------------------------------------------------------------------------
+   Spin
+----------------------------------------------------------------------------- */
+#loadingSpinner {
+    position: fixed;
+    z-index: 9999;
+    /* top: 0; */
+    /* left: 0; */
+    /* width: 100%; */
+    /* height: 100%; */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    display: block;
+}
+
+.fa-spinner
+{
+    font-size: initial;
+}
+
+#loadingSpinner.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.nax_semitransparent-panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0.5;
+    z-index: 99;
+}
+
+.nax_spinner {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+    width: 200px;
+    background-color: #fff;
+    z-index: 1000;
+}
+
+
+/* Multi-edit adjustements */
+.box-header
+{
+    min-height: 55px;
+}
+
+.red-hover-border:hover
+{
+  border-color: #ff0000 !important;
+  box-shadow: #ff0000;
+
+}
+
+.red-hover-background:hover
+{
+    background-color: red !important;
+}
+
+.top-left-logo
+{
+    height:35px;
+    width:35px;
+}
+
+/* -----------------------------------------------------------------------------
+   Workflows
+----------------------------------------------------------------------------- */
+#wf-content-wrapper
+{
+    display: grid;
+}
+
+#workflowContainer
+{
+    display: grid;
+}
+
+#workflowContainerWrap {
+    display: grid;
+}
+
+#workflowContainerWrap .panel-collapse
+{
+    padding: 5px;
+}
+
+.workflows .add-target-condition
+{
+    margin: 10px;
+    text-align: center;
+}
+
+.workflows .inline-hint
+{
+    margin: 5px;
+}
+
+.workflows
+{
+    max-width: 800px;
+}
+
+.workflows .col-sm-12, .workflows .col-sx-12
+{
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.workflows .add-button-wrap .button-container
+{
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.workflows .actions-list {
+
+    display: block;
+}
+
+.workflows .form-group {
+    margin-bottom: 7px;
+    z-index: 1;
+    display: flex;
+    opacity: 0.7;
+}
+
+.workflows .section-title
+{
+    padding: 10px;
+    font-weight: bolder;
+    font-size: large;
+}
+
+.workflows .panel, .workflows .box   {
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+.workflows .btn-secondary{
+    color: #000;
+}
+
+.workflows .button-container
+{
+    /* display: contents; */
+    text-align: center;
+    /* width: 100%; */
+}
+
+/* .workflows .panel:hover{
+    opacity: 1;
+}
+
+.workflows .panel{
+    opacity: 0.8;
+} */
+
+.workflows .bottom-buttons button
+{
+    margin: 5px;
+}
+
+.workflows .button-container
+{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+/* .workflows .condition-list button
+{
+    margin: 2px;
+} */
+
+/* .button-container button
+{
+    width:100%;
+} */
+
+.red-hover-text:hover
+{
+    color: var(--color-red) !important;
+}
+
+.green-hover-text:hover
+{
+    color: var(--color-green) !important;
+}
+
+.workflows .add-condition, .workflows .add-condition-group, .workflows .add-target-condition
+{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.workflows .action-target-conditions
+{
+    opacity: 0.8;
+}
+
+.workflows .bckg-icon-base
+{
+    display: block;
+    position: absolute;
+    opacity: 0.1;
+    right: 0.1em;
+}
+.workflows .bckg-icon-1-line
+{
+    font-size: 3em;
+    display: block;
+    position: absolute;
+    opacity: 0.1;
+    right: 0.1em;
+}
+.workflows .bckg-icon-2-line
+{
+    font-size: 6em;
+    display: block;
+    position: absolute;
+    opacity: 0.1;
+    right: 0.1em;
+}
+.workflows .bckg-icon-3-line
+{
+    font-size: 9em;
+    display: block;
+    position: absolute;
+    opacity: 0.1;
+    right: 0.1em;
+}
+
+
+.workflows .remove-condition
+{
+    z-index: 1;
+}
+
+.workflows .workflow-card
+{
+    display: block;
+}
+
+.workflow-card .panel-title
+{
+    padding: 10px;
+}
+
+.workflow-card, .actions-list
+{
+    display: contents;
+    padding: 5px;
+    padding-left: 10px;
+}
+
+.condition-list
+{
+    z-index:1;
+}
+
+.condition
+{
+    padding: 5px;
+    padding-left: 10px;
+}
+
+/* -----------------------------------------------------------------------------
+   InitCheck
+----------------------------------------------------------------------------- */
+#panInitCheck .row
+{
+    width: 100%;
+}
+
+#panInitCheck 
+{
+    display: flow-root;
+}
+
+.init-check-button
+{
+  margin: 0;
+  position: relative;
+  left: 50%;
+  -ms-transform: translate(-50%, 0%);
+  transform: translate(-50%, 0%);
+}
+
+/* -----------------------------------------------------------------------------
+   Sys info
+----------------------------------------------------------------------------- */
+#appEvents
+{
+    display: flow-root;
+}
+
+/* -----------------------------------------------------------------------------
+   Floating edit button
+----------------------------------------------------------------------------- */
+#multiEditPlc
+{
+    padding-right: 10px;
+}
+
+
+table.dataTable tbody > tr.selected
+{
+  /* color:red; */
+  color: #353c42;
+}
+
+/* -----------------------------------------------------------------------------
+   Device -> Details
+----------------------------------------------------------------------------- */
+#panDetails
+{
+    padding:10px;
+}
+
+/* -----------------------------------------------------------------------------
+   Device -> Tools
+----------------------------------------------------------------------------- */
+#panTools
+{
+    padding:10px;
+}
+
+/* -----------------------------------------------------------------------------
+   Device -> Sessions
+----------------------------------------------------------------------------- */
+#panSessions
+{
+    padding:10px;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Device -> Presence
+----------------------------------------------------------------------------- */
+#panPresence
+{
+    padding:10px;
+}
+
+/* -----------------------------------------------------------------------------
+   Device -> Events
+----------------------------------------------------------------------------- */
+#panEvents
+{
+    padding:10px;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Field Lock/Unlock Buttons & Source Indicators
+----------------------------------------------------------------------------- */
+.field-lock-btn {
+    cursor: pointer;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+    padding: 8px 10px;
+}
+
+.field-lock-btn:hover {
+    opacity: 0.8 !important;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.field-lock-btn:active {
+    opacity: 0.6 !important;
+}
+
+.input-group-addon.text-warning {
+    color: #f39c12;
+    background-color: rgba(243, 156, 18, 0.1);
+}
+
+.input-group-addon.text-danger {
+    color: #dd4b39;
+    background-color: rgba(221, 75, 57, 0.1);
+}
+
+.input-group-addon.text-muted {
+    color: #8c8c8c;
+    background-color: rgba(140, 140, 140, 0.05);
+}
+
+/* -----------------------------------------------------------------------------
+   Change log
+----------------------------------------------------------------------------- */
+
+.change-log .helpIcon{
+    font-size: x-small;
+    top: 0px; 
+}
+
+#panHistory .change-log .helpIcon{
+    left: 15px;
+    font-size: x-small;
+    top: 45px;
+}
+
+#panHistory
+{
+    min-height:850px
+}
+
+#navDevice .tab-content
+{
+    padding:0px;
+}
+
+.changeLogFilter{
+    display:flex; 
+    gap:10px; 
+    flex-wrap:wrap; 
+    align-items:center;
+    padding:5px;
+}
+
+#changeHistoryPage .box
+{
+    margin-bottom:0px
+}
+
+#changeHistoryPage .change-log-skeleton-class
+{
+    padding: 15px;
+    width: auto;
+}
+
+/* -----------------------------------------------------------------------------
+   Loading Skeletons
+----------------------------------------------------------------------------- */
+
+/* Custom properties (overridden in dark-patch.css for Dark/System themes) */
+:root {
+    --skel-base:     #e2e2e2;
+    --skel-shine:    #f0f0f0;
+    --skel-section:  #d4d4d4;
+    --skel-panel-bg: #fff;
+    --skel-border:   #ddd;
+    --skel-bg:       #fff;
+}
+
+@keyframes settingsShimmer {
+    0%   { background-position: -600px 0; }
+    100% { background-position:  600px 0; }
+}
+
+.skel-shimmer {
+    background: linear-gradient(
+        90deg,
+        var(--skel-base)  25%,
+        var(--skel-shine) 50%,
+        var(--skel-base)  75%
+    );
+    background-size: 600px 100%;
+    animation: settingsShimmer 1.5s infinite linear;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+/* Positioning anchors */
+#settingsPage, #devicesPage, #deviceDetailsPage,
+#eventsPage, #presencePage, #reportPage, #notifications, #wf-content-wrapper, #pluginsPage,
+#panDetails, #panSessions, #panPresence, #panEvents, #appEvents {
+    position: relative;
+}
+
+#tab_DBTools, #tab_BackupRestore, #tab_Logging, #tab_multiEdit { position: relative; min-height: 320px; }
+
+/* Page-level overlay base */
+#settings-skeleton, #devices-skeleton, #device-details-skeleton,
+#events-skeleton, #presence-skeleton, #report-skeleton, #skel-app-events, #change-log-skeleton,
+#notifications-skeleton, #workflows-skeleton, #plugins-skeleton, .skel-tab-pane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--skel-bg);
+}
+#settings-skeleton, #devices-skeleton, #device-details-skeleton,
+#events-skeleton, #presence-skeleton, #report-skeleton, #skel-app-events,
+#notifications-skeleton, #workflows-skeleton, #plugins-skeleton { z-index: 50; }
+.skel-tab-pane           { z-index: 10; min-height: 400px; background-color: var(--skel-panel-bg);}
+#settings-skeleton       { margin: 15px; min-height: 500px; }
+#devices-skeleton        { margin: 15px; top: 50px; min-height: 500px; }
+#skel-app-events         { margin: 15px; top: 50px; min-height: 500px; z-index: inherit;}
+#device-details-skeleton { margin: 15px; top: 42px; padding: 10px }
+#events-skeleton         { margin: 15px; top: 50px; min-height: 500px; }
+#presence-skeleton       { margin: 15px; top: 50px; min-height: 500px; }
+#report-skeleton         { margin: 15px; top: 50px; min-height: 400px; }
+#notifications-skeleton  { margin: 15px; top: 50px; min-height: 400px; }
+#workflows-skeleton      { top: 50px; width: 770px; margin: 0 auto; min-height: 300px; }
+#plugins-skeleton        { top: 50px; padding: 0; min-height: 400px; }
+#change-log-skeleton     { display: block;  min-height: 400px;  z-index: 1; position: absolute; margin-left: 15px; padding-top: 15px; width:100%;}
+#skel-tab-sessions, #skel-tab-events, #skel-tab-presence { padding: 20px;}
+
+/* Hide scrollbars */
+#skel-tab-sessions, #skel-tab-events, #skel-tab-presence {
+    overflow: hidden; /* Hides the scrollbar */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+}
+#skel-tab-sessions::-webkit-scrollbar, #skel-tab-events::-webkit-scrollbar, #skel-tab-presence::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
+/* Bordered containers */
+.skel-overview-panel, .skel-section, .skel-plugin-block,
+.skel-chart-box, .skel-table-box,
+.skel-detail-info-panel, .skel-detail-form, .skel-tabs-bar {
+    border: 1px none var(--skel-border);
+}
+
+/* Clipped rounded containers */
+.skel-overview-panel, .skel-section, .skel-plugin-block,
+.skel-chart-box, .skel-table-box, .skel-tile {
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* Section-toned backgrounds */
+.skel-overview-heading, .skel-section-header, .skel-plugin-header,
+.skel-box-header, .skel-table-header-row, .skel-tile, .skel-tabs-bar {
+    background: var(--skel-section);
+}
+
+#pluginsPage .skel-table-box, .plugin-content .skel-table-box { background: var(--skel-bg); }
+
+/* Panel-toned backgrounds */
+.skel-overview-body, .skel-overview-header, .skel-plugin-body,
+.skel-detail-info-panel, .skel-detail-form {
+    background: var(--skel-panel-bg);
+}
+
+/* Flex rows with vertical centering */
+.skel-overview-heading, .skel-overview-header, .skel-section-header, .skel-plugin-header,
+.skel-box-header, .skel-table-header-row, .skel-setting-row, .skel-tr, .skel-form-row,
+.skel-tile-icon-area {
+    display: flex;
+    align-items: center;
+}
+
+/* Standard header bar height + padding */
+.skel-overview-heading, .skel-overview-header, .skel-section-header, .skel-box-header {
+    height: 44px;
+    padding: 0 15px;
+}
+
+/* Row separator borders */
+.skel-setting-row, .skel-tr, .skel-form-row { border-bottom: 1px solid var(--skel-border); }
+.skel-setting-row:last-child, .skel-tr:last-child, .skel-form-row:last-of-type { border-bottom: none; }
+
+/* Standard data row spacing */
+.skel-setting-row, .skel-tr { gap: 10px; padding: 11px 15px; }
+
+/* Thin-line height (14px) */
+.skel-line, .skel-cell-name, .skel-cell-desc, .skel-th, .skel-form-label { height: 14px; }
+
+/* Non-growing primitives */
+.skel-line, .skel-icon-block, .skel-cell-name, .skel-cell-desc, .skel-form-label { flex-shrink: 0; }
+
+/* Filling cells (flex: 1) */
+.skel-tile-inner, .skel-th, .skel-td, .skel-cell-input, .skel-form-input { flex: 1; }
+
+/* ----- Settings --------------------------------------------------------- */
+.skel-overview-panel    { margin-bottom: 10px; }
+.skel-overview-heading  { gap: 12px; }
+.skel-overview-body     { padding: 12px; }
+.skel-overview-card     { min-width: 100%; height: 76px; border-radius: 4px; padding: 5px;}
+.skel-section           { margin-bottom: 8px; }
+.skel-overview-header   { gap: 14px; }
+.skel-section-header    { gap: 14px; }
+.skel-plugin-block      { margin: 8px; }
+.skel-plugin-header     { height: 48px; padding: 0 15px; gap: 14px; }
+.skel-icon-block        { width: 22px; height: 16px; }
+.skel-cell-name         { width: 20%; }
+.skel-cell-desc         { width: 36%; }
+.skel-cell-input        { height: 32px; }
+
+/* ----- Devices ---------------------------------------------------------- */
+.skel-tile-row          { margin-right: -30px;  margin-left: -30px;}
+.skel-tile              { display: flex; height: 80px; margin-bottom: 15px;}
+#device-details-skeleton .skel-tile { display: flex; height: 45px; }
+.skel-tile-inner        { display: flex; flex-direction: column; padding: 12px 15px; justify-content: center; gap: 10px; }
+.skel-tile-num          { height: 26px; width: 55%; }
+.skel-tile-label        { height: 13px; width: 75%; }
+.skel-tile-icon-area    { width: 70px; justify-content: center; background: var(--skel-base); opacity: 0.6; }
+.skel-tile-icon-shape   { width: 38px; height: 38px; border-radius: 50%; }
+.skel-chart-box         { margin-bottom: 12px; }
+.skel-box-header        { gap: 12px; border-bottom: 1px solid var(--skel-border); }
+.skel-chart-body        { height: 220px; border-radius: 0; display: block; width: 100%; }
+.skel-table-header-row  { gap: 10px; padding: 10px 15px; border-bottom: 2px solid var(--skel-border); }
+.skel-td                { height: 13px; }
+
+/* ----- Device Details --------------------------------------------------- */
+.skel-detail-header     { margin-bottom: 0px; }
+.skel-detail-title      { height: 26px; width: 42%; margin-bottom: 0px; }
+.skel-detail-info-panel { display: flex; gap: 0; padding: 14px; border-radius: 4px; margin-bottom: 15px; max-width: 400px; }
+.skel-tabs-bar          { display: flex; gap: 4px; padding: 8px 10px 0; border-radius: 4px 4px 0 0; border-bottom: none; }
+.skel-tab               { height: 34px; width: 100px; border-radius: 4px 4px 0 0; flex-shrink: 0; }
+.skel-detail-form       { border-top: none; border-radius: 0 0 4px 4px; padding: 20px 15px; }
+.skel-detail-form-tab   { border-top: none; border-radius: 0 0 4px 4px; padding: 20px 15px; margin: -10px; }
+.skel-form-row          { gap: 15px; padding: 9px 0; }
+.skel-form-label        { width: 18%; min-width: 100px; }
+.skel-form-input        { height: 32px; }
+.skel-form-footer       { display: flex; justify-content: flex-end; gap: 10px; padding-top: 15px; }
+.skel-form-footer-left  { display: flex; justify-content: flex-start; gap: 10px; padding-top: 15px; }
+.skel-form-btn          { height: 34px; width: 100px; }
+
+/* ----- Workflows -------------------------------------------------------- */
+.skel-workflow-card     { border: 1px solid var(--skel-border); border-radius: 4px; margin-bottom: 8px; overflow: hidden; }
+.skel-workflow-header   { display: flex; align-items: center; height: 48px; padding: 0 15px; background: var(--skel-section); }
+
+/* ----- AppEvents -------------------------------------------------------- */
+#skel-app-event      { display: flex; gap: 0; min-height: 400px; }
+
+/* ----- Plugins ---------------------------------------------------------- */
+.skel-plugins-wrap      { display: flex; gap: 0; min-height: 400px; }
+.skel-plugins-nav       { flex-shrink: 0; border-right: 1px solid var(--skel-border); padding: 8px 0; }
+.skel-plugins-nav-item  { display: flex; align-items: center; padding: 9px 15px; border-bottom: 1px solid var(--skel-border); }
+.skel-plugins-nav-item:last-child { border-bottom: none; }
+.skel-plugins-body      { flex: 1; padding: 0; }
+
+/* ----- Systeminfo tabs -------------------------------------------------- */
+.skel-info-tab          { padding: 15px; min-height: 360px; }
+.skel-info-tab          { margin: -10px;}
+
+/* ----- ChangeLog tabs -------------------------------------------------- */
+#panHistory .change-log-skeleton-class { width: calc(100% - 30px); padding: 5px; top: auto;}
+
+/* ===== /Loading Skeleton ===== */
+

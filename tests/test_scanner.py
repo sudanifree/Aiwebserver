@@ -1,7 +1,8 @@
 import hashlib
+from io import BytesIO
 import unittest
 
-from scanner import MAX_FILE_BYTES, scan_bytes
+from scanner import MAX_FILE_BYTES, scan_bytes, scan_stream
 
 
 class ScanBytesTests(unittest.TestCase):
@@ -30,6 +31,15 @@ class ScanBytesTests(unittest.TestCase):
 
         self.assertIn("File exceeds the 10 MiB scan limit", result.findings)
         self.assertEqual(result.size, len(data))
+
+    def test_stream_hashes_full_file_but_only_flags_extension_when_requested(self):
+        data = b"safe content" * ((MAX_FILE_BYTES // 12) + 2)
+
+        result = scan_stream("source.php", BytesIO(data), flag_active_extension=False)
+
+        self.assertEqual(result.sha256, hashlib.sha256(data).hexdigest())
+        self.assertEqual(result.size, len(data))
+        self.assertEqual(result.findings, ["File exceeds the 10 MiB scan limit"])
 
 
 if __name__ == "__main__":

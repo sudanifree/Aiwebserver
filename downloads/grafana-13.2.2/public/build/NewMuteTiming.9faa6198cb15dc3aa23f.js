@@ -1,0 +1,3 @@
+"use strict";(self.webpackChunkgrafana=self.webpackChunkgrafana||[]).push([[8302],{65340(D,a,t){t.r(a),t.d(a,{default:()=>l});var n=t(74848),i=t(52358),_=t(64702),E=t(30465),e=t(93621),g=t(77628),r=t(25877),s=t(65180);function P(){const{navId:v}=(0,E.s4)(),o=_.$.featureToggles.alertingNavigationV2,M=(0,e.aU)(o);return(0,n.jsx)(r.y,{navId:v,pageNav:{id:"alert-policy-new",text:(0,i.t)("alerting.new-mute-timing-page.text.add-time-interval","New time interval"),parentItem:{text:(0,i.t)("alerting.time-intervals.title","Time intervals"),url:M}},accessType:"notification",children:(0,n.jsx)(s.A,{})})}const l=(0,g.S)(P)}}]);
+
+//# sourceMappingURL=NewMuteTiming.9faa6198cb15dc3aa23f.js.map

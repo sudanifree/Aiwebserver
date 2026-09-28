@@ -1,0 +1,14 @@
+{
+    "name": "NetAlertX Console",
+    "short_name": "NetAlertX",
+    "display": "standalone",
+    "icons": [
+    {
+      "src": "/img/NetAlertX_logo.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+    ],
+    "theme_color": "#000",
+    "background_color": "#000"
+}

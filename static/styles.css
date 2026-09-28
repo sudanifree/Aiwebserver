@@ -84,6 +84,17 @@ h2 { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0; }
 .drop-zone strong { max-width: calc(100% - 30px); overflow: hidden; color: #344139; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
 .drop-hint { margin-top: 4px; color: #929c94; font-size: 10px; }
 .drop-types { margin-top: 11px; color: #a0a9a1; font-family: var(--mono); font-size: 8px; }
+.downloads-scan-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 9px; margin-top: 16px; }
+.downloads-scope { display: flex; min-width: 0; align-items: flex-start; gap: 8px; }
+.scope-dot { width: 7px; height: 7px; flex: 0 0 auto; margin-top: 4px; border-radius: 50%; background: #82bd50; }
+.downloads-scope strong, .downloads-scope small { display: block; }
+.downloads-scope strong { color: #46534a; font-family: var(--mono); font-size: 9px; font-weight: 500; }
+.downloads-scope small { margin-top: 3px; color: #89938c; font-size: 9px; line-height: 1.45; }
+.button-secondary { display: inline-flex; min-height: 32px; align-items: center; justify-content: center; gap: 7px; padding: 0 10px; border: 1px solid #dce5d8; border-radius: 4px; background: #f8fbf6; color: #41513e; cursor: pointer; font-size: 9px; font-weight: 700; white-space: nowrap; }
+.button-secondary:hover { border-color: #b9d69f; background: #f0f8e9; }
+.button-secondary:disabled { opacity: .6; cursor: progress; }
+.downloads-scan-status { min-height: 14px; margin: 7px 0 2px 15px; color: #8a948c; font-size: 8px; line-height: 1.5; }
+.downloads-scan-status.download-scan-error { color: #cb5c49; }
 .upload-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 11px; }
 .engine-label { display: flex; align-items: center; gap: 7px; color: #7e8981; font-family: var(--mono); font-size: 8px; }
 .engine-label i { width: 6px; height: 6px; background: #7dbc49; box-shadow: none; }

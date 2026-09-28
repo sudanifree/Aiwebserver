@@ -1,0 +1,3 @@
+"use strict";(self.webpackChunkgrafana=self.webpackChunkgrafana||[]).push([[617],{17863(g,l,a){a.r(l),a.d(l,{default:()=>E});var s=a(74848),e=a(52358),r=a(13400),u=a(67932),o=a(83412);function E({dashboardUid:_}){const{loading:f,result:t}=(0,o.kU)(_),M=t?t.flatMap(n=>n.groups).flatMap(n=>n.rules):[];return(0,s.jsx)(s.Fragment,{children:f?(0,s.jsx)(r._,{text:(0,e.t)("alerting.alert-rules-drawer-content.text-loading-alert-rules","Loading alert rules")}):(0,s.jsx)(u.s,{rules:M,showNextEvaluationColumn:!1,showGroupColumn:!1})})}}}]);
+
+//# sourceMappingURL=alert-rules-drawer-content.742ce59df35acf198f3b.js.map

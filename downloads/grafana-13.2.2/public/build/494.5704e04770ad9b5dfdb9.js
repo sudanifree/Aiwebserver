@@ -1,0 +1,3 @@
+"use strict";(self.webpackChunkgrafana=self.webpackChunkgrafana||[]).push([[494],{494(r,t,a){a.d(t,{FilterByRefIdTransformerEditor:()=>d});var e=a(74848),_=a(35831),o=a(71485);const d=n=>(0,e.jsx)(o.M,{value:{id:_.jR.byRefId,options:n.options.include||""},onChange:i=>{n.onChange({...n.options,include:i?.options||""})},context:{data:n.input}})}}]);
+
+//# sourceMappingURL=494.5704e04770ad9b5dfdb9.js.map

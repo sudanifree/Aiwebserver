@@ -1,0 +1,3 @@
+"use strict";(self.webpackChunkgrafana=self.webpackChunkgrafana||[]).push([[1266],{71266(h,e,s){s.d(e,{PerformanceBackend:()=>a});var r=s(69853),t=s(4229);class a{constructor(n){this.options=n,this.buffer=[],this.supportedEvents=[r.on.Performance],this.addEvent=f=>{this.buffer.push(f.payload)},this.flush=()=>{this.buffer.length!==0&&(t.IB.post("/api/frontend-metrics",{events:this.buffer},{showErrorAlert:!1}).catch(()=>{}),this.buffer=[])}}}}}]);
+
+//# sourceMappingURL=1266.cec301e7ad1914cdd971.js.map

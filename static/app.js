@@ -5,6 +5,8 @@ const dropTitle = document.querySelector("#drop-title");
 const dropHint = document.querySelector("#drop-hint");
 const scanButton = document.querySelector("#scan-button");
 const scanResult = document.querySelector("#scan-result");
+const downloadsScanButton = document.querySelector("#downloads-scan-button");
+const downloadsScanStatus = document.querySelector("#downloads-scan-status");
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({
@@ -49,6 +51,7 @@ async function refreshStatus() {
     const status = await response.json();
     document.querySelector("#files-count").textContent = status.scan_count;
     document.querySelector("#flagged-count").textContent = status.flagged_count;
+    document.querySelector("#scan-foot").textContent = `${status.downloads_count} files tracked in downloads/`;
     document.querySelector("#ports-count").textContent = status.ports.length;
     document.querySelector("#unauthorized-count").textContent = status.unauthorized_ports;
     document.querySelector("#ports-foot").textContent = `${status.ports.length} listening on this device`;
@@ -113,6 +116,27 @@ uploadForm.addEventListener("submit", async (event) => {
   } finally {
     scanButton.disabled = false;
     scanButton.querySelector("span:first-child").textContent = "Scan file";
+  }
+});
+
+downloadsScanButton.addEventListener("click", async () => {
+  downloadsScanButton.disabled = true;
+  downloadsScanButton.querySelector("span:last-child").textContent = "Scanning…";
+  downloadsScanStatus.textContent = "Inspecting regular files and archive contents without running them…";
+  downloadsScanStatus.classList.remove("download-scan-error");
+  try {
+    const response = await fetch("/api/scan-downloads", { method: "POST" });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || "Downloads scan failed");
+    const limitNote = result.truncated ? " · scan limit reached" : "";
+    downloadsScanStatus.textContent = `Scan complete · ${result.scanned} files inspected · ${result.review} need review · ${result.skipped} unchanged${limitNote}`;
+    refreshStatus();
+  } catch (error) {
+    downloadsScanStatus.textContent = error.message;
+    downloadsScanStatus.classList.add("download-scan-error");
+  } finally {
+    downloadsScanButton.disabled = false;
+    downloadsScanButton.querySelector("span:last-child").textContent = "Scan downloads";
   }
 });
 

@@ -9,19 +9,30 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libldap2-dev \
         libpng-dev \
         libsnmp-dev \
+        mariadb-server \
         rrdtool \
         snmp \
+        snmpd \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j"$(nproc)" gd gmp intl ldap mysqli pdo_mysql snmp sockets \
+    && docker-php-ext-install -j"$(nproc)" gd gmp intl ldap mysqli pcntl pdo_mysql snmp sockets \
     && a2enmod headers rewrite \
     && rm -rf /var/lib/apt/lists/*
+
+RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+    && printf '%s\n' \
+        'date.timezone = UTC' \
+        'memory_limit = 400M' \
+        'max_execution_time = 60' \
+        > "$PHP_INI_DIR/conf.d/99-cacti.ini"
 
 COPY downloads/cacti-1.2.31/ /var/www/html/
 COPY docker/cacti-entrypoint.sh /usr/local/bin/cacti-entrypoint
 
 RUN chmod 0755 /usr/local/bin/cacti-entrypoint \
     && chown -R www-data:www-data /var/www/html \
-    && printf '%s\n' '*/5 * * * * www-data php /var/www/html/poller.php --force >> /var/www/html/log/cron.log 2>&1' > /etc/cron.d/cacti \
+    && mkdir -p /var/lib/mysql /run/mysqld \
+    && chown -R mysql:mysql /var/lib/mysql /run/mysqld \
+    && printf '%s\n' '*/5 * * * * www-data /usr/local/bin/php /var/www/html/poller.php --force >> /var/www/html/log/cron.log 2>&1' > /etc/cron.d/cacti \
     && chmod 0644 /etc/cron.d/cacti
 
 EXPOSE 80

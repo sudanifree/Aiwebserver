@@ -40,7 +40,7 @@
     </section>
 
     <section class="metrics" aria-label="Security summary">
-      <article class="metric"><div class="metric-top"><span>FILES CHECKED</span><span class="metric-icon green">⌁</span></div><div class="metric-value" id="files-count">0</div><div class="metric-foot">Recent scan history</div></article>
+      <article class="metric"><div class="metric-top"><span>FILES CHECKED</span><span class="metric-icon green">⌁</span></div><div class="metric-value" id="files-count">0</div><div class="metric-foot" id="scan-foot">Recent scan history</div></article>
       <article class="metric"><div class="metric-top"><span>NEEDS REVIEW</span><span class="metric-icon coral">!</span></div><div class="metric-value" id="flagged-count">0</div><div class="metric-foot">Flagged by local rules</div></article>
       <article class="metric"><div class="metric-top"><span>OPEN PORTS</span><span class="metric-icon blue">⌗</span></div><div class="metric-value" id="ports-count">—</div><div class="metric-foot" id="ports-foot">Checking this device</div></article>
       <article class="metric metric-alert"><div class="metric-top"><span>UNAUTHORIZED</span><span class="metric-icon coral">⌁</span></div><div class="metric-value" id="unauthorized-count">—</div><div class="metric-foot">Outside your allowlist</div></article>
@@ -48,7 +48,12 @@
 
     <section class="content-grid">
       <article class="panel scanner-panel" id="file-scanner">
-        <div class="panel-heading"><div><p class="eyebrow">UPLOAD INSPECTION</p><h2>File scanner</h2></div><span class="panel-index">01</span></div>
+        <div class="panel-heading"><div><p class="eyebrow">DOWNLOADS + UPLOAD INSPECTION</p><h2>File scanner</h2></div><span class="panel-index">01</span></div>
+        <div class="downloads-scan-controls">
+          <div class="downloads-scope"><span class="scope-dot"></span><span><strong>downloads/</strong><small>Auto-scans at startup and every minute · archives inspected without extraction</small></span></div>
+          <button type="button" class="button-secondary" id="downloads-scan-button"><span class="button-arrow">↻</span><span>Scan downloads</span></button>
+        </div>
+        <div id="downloads-scan-status" class="downloads-scan-status" aria-live="polite">Waiting for the first downloads scan</div>
         <form id="upload-form">
           <label class="drop-zone" id="drop-zone" for="file-input">
             <input id="file-input" name="file" type="file" required>
