@@ -1,0 +1,97 @@
+{
+  "id": null,
+  "uid": "aiwebserver-file-integrity",
+  "title": "Aiwebserver File Integrity",
+  "tags": ["aiwebserver", "file-integrity"],
+  "timezone": "browser",
+  "schemaVersion": 41,
+  "version": 1,
+  "refresh": "30s",
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Tracked files",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "aiwebserver-prometheus"
+      },
+      "gridPos": {"h": 5, "w": 6, "x": 0, "y": 0},
+      "targets": [{"refId": "A", "expr": "aiwebserver_file_integrity_files"}],
+      "options": {"colorMode": "value", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}}
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Modified files",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "aiwebserver-prometheus"
+      },
+      "gridPos": {"h": 5, "w": 6, "x": 6, "y": 0},
+      "targets": [{"refId": "A", "expr": "aiwebserver_file_integrity_changed_files"}],
+      "options": {"colorMode": "value", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
+      "fieldConfig": {"defaults": {"thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "red", "value": 1}]}}, "overrides": []}
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Added / deleted",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "aiwebserver-prometheus"
+      },
+      "gridPos": {"h": 5, "w": 6, "x": 12, "y": 0},
+      "targets": [{"refId": "A", "expr": "aiwebserver_file_integrity_added_files + aiwebserver_file_integrity_deleted_files"}],
+      "options": {"colorMode": "value", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
+      "fieldConfig": {"defaults": {"thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "red", "value": 1}]}}, "overrides": []}
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Scan errors",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "aiwebserver-prometheus"
+      },
+      "gridPos": {"h": 5, "w": 6, "x": 18, "y": 0},
+      "targets": [{"refId": "A", "expr": "aiwebserver_file_integrity_scan_errors"}],
+      "options": {"colorMode": "value", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
+      "fieldConfig": {"defaults": {"thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "red", "value": 1}]}}, "overrides": []}
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "File changes from baseline",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "aiwebserver-prometheus"
+      },
+      "gridPos": {"h": 9, "w": 12, "x": 0, "y": 5},
+      "targets": [
+        {"refId": "A", "expr": "aiwebserver_file_integrity_changed_files", "legendFormat": "Modified"},
+        {"refId": "B", "expr": "aiwebserver_file_integrity_added_files", "legendFormat": "Added"},
+        {"refId": "C", "expr": "aiwebserver_file_integrity_deleted_files", "legendFormat": "Deleted"}
+      ],
+      "fieldConfig": {"defaults": {"unit": "short"}, "overrides": []},
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "multi", "sort": "desc"}}
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Monitored file bytes",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "aiwebserver-prometheus"
+      },
+      "gridPos": {"h": 9, "w": 12, "x": 12, "y": 5},
+      "targets": [{"refId": "A", "expr": "aiwebserver_file_integrity_bytes", "legendFormat": "Bytes"}],
+      "fieldConfig": {"defaults": {"unit": "bytes"}, "overrides": []},
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "single"}}
+    }
+  ]
+}
