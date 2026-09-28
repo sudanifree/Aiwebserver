@@ -14,9 +14,6 @@ alerting:
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
 
-  - job_name: "aiwebserver-file-integrity"
-    static_configs:
-      - targets: ["127.0.0.1:9110"]
   # - "first_rules.yml"
   # - "second_rules.yml"
 
@@ -35,3 +32,7 @@ scrape_configs:
         labels:
           app: "prometheus"
     scrape_native_histograms: true
+
+  - job_name: "aiwebserver-file-integrity"
+    static_configs:
+      - targets: ["127.0.0.1:9110"]

@@ -21,8 +21,24 @@ IGNORED_DIRECTORIES = {
     "__pycache__",
     "node_modules",
 }
-IGNORED_ROOT_DIRECTORIES = {"data"}
-IGNORED_SUFFIXES = {".db", ".log", ".pyc", ".sqlite", ".sqlite3"}
+IGNORED_RELATIVE_DIRECTORIES = {
+    "data",
+    "downloads/grafana-13.2.2/data",
+    "downloads/prometheus-3.15.0.linux-amd64/data",
+}
+IGNORED_SUFFIXES = {
+    ".db",
+    ".db-shm",
+    ".db-wal",
+    ".log",
+    ".pyc",
+    ".sqlite",
+    ".sqlite-shm",
+    ".sqlite-wal",
+    ".sqlite3",
+    ".tmp",
+    ".wal",
+}
 HASH_CHUNK_BYTES = 1024 * 1024
 DEFAULT_SCAN_INTERVAL = 30
 DEFAULT_DEEP_HASH_INTERVAL = 300
@@ -101,7 +117,7 @@ class FileIntegrityMonitor:
                 name
                 for name in child_directories
                 if name not in IGNORED_DIRECTORIES
-                and not (relative_directory == Path(".") and name in IGNORED_ROOT_DIRECTORIES)
+                and (relative_directory / name).as_posix() not in IGNORED_RELATIVE_DIRECTORIES
                 and not (directory_path / name).is_symlink()
             )
 
