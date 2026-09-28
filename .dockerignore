@@ -1,0 +1,5 @@
+.git
+__pycache__
+.venv
+data
+downloads/cacti-1.2.31.tar.gz

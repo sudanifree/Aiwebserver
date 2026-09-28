@@ -1,0 +1,28 @@
+FROM php:8.4-apache
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        cron \
+        libfreetype6-dev \
+        libgmp-dev \
+        libicu-dev \
+        libjpeg62-turbo-dev \
+        libldap2-dev \
+        libpng-dev \
+        libsnmp-dev \
+        rrdtool \
+        snmp \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j"$(nproc)" gd gmp intl ldap mysqli pdo_mysql snmp sockets \
+    && a2enmod headers rewrite \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY downloads/cacti-1.2.31/ /var/www/html/
+COPY docker/cacti-entrypoint.sh /usr/local/bin/cacti-entrypoint
+
+RUN chmod 0755 /usr/local/bin/cacti-entrypoint \
+    && chown -R www-data:www-data /var/www/html \
+    && printf '%s\n' '*/5 * * * * www-data php /var/www/html/poller.php --force >> /var/www/html/log/cron.log 2>&1' > /etc/cron.d/cacti \
+    && chmod 0644 /etc/cron.d/cacti
+
+EXPOSE 80
+ENTRYPOINT ["/usr/local/bin/cacti-entrypoint"]
