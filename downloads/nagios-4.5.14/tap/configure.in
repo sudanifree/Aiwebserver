@@ -1,0 +1,57 @@
+AC_INIT([tap],[1.01])
+AC_CONFIG_SRCDIR(src/tap.c)
+AM_INIT_AUTOMAKE([foreign])
+AC_PROG_CC
+LT_INIT
+AC_PROG_INSTALL
+dnl https://www.gnu.org/software//automake/manual/html_node/maintainer_002dmode.html
+dnl Disabling maintainer mode because I don't want to require people to install automake 1.17
+dnl in order to run the test suite. Caveats are described in the above link
+dnl One being that maintainers have to make sure that the Makefile.in files are updated manually
+dnl This helps with github actions
+AM_MAINTAINER_MODE([disable])
+
+# Checks for libraries
+case "$host" in
+	*-*-*freebsd4*)
+		LDFLAGS="$LDFLAGS -pthread"
+		HAVE_LIBPTHREAD=1
+		;;
+	*)
+		AC_CHECK_LIB(pthread, main)
+		;;
+esac
+
+# Checks for header files
+AC_CHECK_HEADERS([stdlib.h])
+AC_CHECK_HEADERS([pthread.h])
+
+# Checks for  typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+# Checks for library functions.
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS([atexit])
+
+AC_CONFIG_FILES([Makefile
+		 src/Makefile
+		 tests/Makefile
+		 tests/diag/Makefile
+		 tests/fail/Makefile
+		 tests/ok/Makefile
+		 tests/ok/ok-hash/Makefile
+		 tests/ok/ok-numeric/Makefile
+		 tests/ok/ok/Makefile
+		 tests/pass/Makefile
+		 tests/plan/Makefile
+		 tests/plan/no-tests/Makefile
+		 tests/plan/no_plan/Makefile
+		 tests/plan/not-enough-tests/Makefile
+		 tests/plan/sane/Makefile
+		 tests/plan/skip_all/Makefile
+		 tests/plan/too-many-plans/Makefile
+		 tests/plan/too-many-tests/Makefile
+		 tests/skip/Makefile
+		 tests/todo/Makefile
+		])
+AC_OUTPUT

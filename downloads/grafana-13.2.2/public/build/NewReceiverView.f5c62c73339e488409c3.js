@@ -1,0 +1,3 @@
+"use strict";(self.webpackChunkgrafana=self.webpackChunkgrafana||[]).push([[3167],{63392(f,n,a){a.r(n),a.d(n,{default:()=>O});var _=a(74848),t=a(71897),r=a(30465),E=a(82586),s=a(77628),o=a(25877),P=a(69698),i=a(90069);const D=()=>{const{selectedAlertmanager:e}=(0,t.VI)();return e===E.hY?(0,_.jsx)(i.a,{}):(0,_.jsx)(P.B,{alertManagerSourceName:e})};function M(){const{navId:e,pageNav:v}=(0,r.We)();return(0,_.jsx)(o.y,{navId:e,pageNav:v,accessType:"notification",children:(0,_.jsx)(D,{})})}const O=(0,s.S)(M)}}]);
+
+//# sourceMappingURL=NewReceiverView.f5c62c73339e488409c3.js.map

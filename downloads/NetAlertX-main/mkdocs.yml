@@ -1,0 +1,247 @@
+site_name: Documentation
+site_url: https://docs.netalertx.com
+repo_url: https://github.com/netalertx/NetAlertX/
+edit_uri: blob/main/docs/
+docs_dir: docs
+use_directory_urls: true
+site_description: >-
+  The main documentation resource for NetAlertX - Network visibility & Asset intelligence application
+# static_dir: docs/img
+nav:
+  - Home: index.md
+  - Installation:
+      - Installation options: INSTALLATION.md
+      - Quick setup: INITIAL_SETUP.md
+      - Docker:
+        - Docker guide: DOCKER_INSTALLATION.md
+        - Docker Compose: DOCKER_COMPOSE.md
+        - Docker file permissions: FILE_PERMISSIONS.md
+        - Docker updates: UPDATES.md
+        - Docker maintenance: DOCKER_MAINTENANCE.md
+      - Docker startup troubleshooting:
+        - ARP flux sysctls: docker-troubleshooting/arp-flux-sysctls.md
+        - Aufs capabilities: docker-troubleshooting/aufs-capabilities.md
+        - Excessive capabilities: docker-troubleshooting/excessive-capabilities.md
+        - File permissions: docker-troubleshooting/file-permissions.md
+        - Incorrect user: docker-troubleshooting/incorrect-user.md
+        - Missing capabilities: docker-troubleshooting/missing-capabilities.md
+        - Mount issues: docker-troubleshooting/mount-configuration-issues.md
+        - Network mode: docker-troubleshooting/network-mode.md
+        - Nginx mount: docker-troubleshooting/nginx-configuration-mount.md
+        - Port conflicts: docker-troubleshooting/port-conflicts.md
+        - Read only: docker-troubleshooting/read-only-filesystem.md
+        - Running as root: docker-troubleshooting/running-as-root.md
+      - Other:
+        - Synology guide: SYNOLOGY_GUIDE.md
+        - Portainer Stacks: DOCKER_PORTAINER.md
+        - Community guides: COMMUNITY_GUIDES.md
+        - Bare-metal (Experimental): HW_INSTALL.md
+        - Migration guide: MIGRATION.md
+      - Help:
+        - Common issues: COMMON_ISSUES.md
+  - Setup:
+      - Getting started:
+        - Subnets: SUBNETS.md
+        - Enable Plugins: PLUGINS_OVERVIEW.md
+        - Plugins reference: plugins/
+        - Backups: BACKUPS.md
+        - Security features: SECURITY_FEATURES.md
+        - Security considerations: SECURITY.md
+      - Advanced guides:
+        - Remote networks: REMOTE_NETWORKS.md
+        - Notifications guide: NOTIFICATIONS.md
+        - Notification text templates: NOTIFICATION_TEMPLATES.md
+        - Custom PUID/GUID: PUID_PGID_SECURITY.md
+        - Name resolution: NAME_RESOLUTION.md
+        - Authelia guide: AUTHELIA.md
+        - Performance guide: PERFORMANCE.md
+        - Reverse DNS: REVERSE_DNS.md
+        - Reverse proxy: REVERSE_PROXY.md
+        - Workflows: WORKFLOWS.md
+        - Workflow examples: WORKFLOW_EXAMPLES.md
+        - Docker Swarm: DOCKER_SWARM.md
+      - Best practice guides:
+        - NOC / Eyes-on-glass dashboard: ADVISORY_EYES_ON_GLASS.md
+        - Multi-network (VLAN / routing) monitoring: ADVISORY_MULTI_NETWORK.md
+        - Multi-site (MSP / customer / branch) monitoring: ADVISORY_MULTI_SITE_MONITORING.md
+      - Help:
+        - Common issues: COMMON_ISSUES.md
+        - Random MAC: RANDOM_MAC.md
+  - Device guides:
+      - Editing devices:
+        - Management: DEVICE_MANAGEMENT.md
+        - Bulk editing: DEVICES_BULK_EDITING.md
+        - Custom properties: CUSTOM_PROPERTIES.md
+        - Device display settings: DEVICE_DISPLAY_SETTINGS.md
+        - Device views filtering: DEVICE_FILTERS.md
+        - Session info: SESSION_INFO.md
+        - Field Lock/Unlock: DEVICE_FIELD_LOCK.md        
+      - Device auditing:
+        - Change log: DEVICE_CHANGE_LOG.md
+        - Presence: DEVICE_PRESENCE.md
+        - Device source fields: DEVICE_SOURCE_FIELDS.md
+      - Icons and network topology:
+        - Icons: ICONS.md
+        - Network topology: NETWORK_TREE.md
+  - Other guides:
+      - Pi-hole guide: PIHOLE_GUIDE.md
+      - Home Assistant: HOME_ASSISTANT.md
+      - Common email services: SMTP.md 
+      - Rest import: REST_IMPORT.md 
+      - Webhooks (n8n): WEBHOOK_N8N.md
+  - Troubleshooting:
+      - General tips: DEBUG_TIPS.md
+      - Common issues: COMMON_ISSUES.md
+      - Inspecting logs: LOGGING.md
+      - API server issues: DEBUG_API_SERVER.md
+      - Invalid JSON issues: DEBUG_INVALID_JSON.md
+      - PHP backend issues: DEBUG_PHP.md
+      - Plugin issues: DEBUG_PLUGINS.md
+      - Web UI port issues: WEB_UI_PORT_DEBUG.md
+      - Workflows issues: WORKFLOWS_DEBUGGING.md
+      - Incorrect offline detection: FIX_OFFLINE_DETECTION.md
+  - Development:
+      - Plugin and app development:
+        - Environment setup: DEV_ENV_SETUP.md
+        - Builds: BUILDS.md
+        - Devcontainer: DEV_DEVCONTAINER.md
+        - Devcontainer ports: DEV_PORTS_HOST_MODE.md
+        - Custom plugins:
+          - Overview: PLUGINS_DEV.md
+          - Quick start: PLUGINS_DEV_QUICK_START.md
+          - Data contract: PLUGINS_DEV_DATA_CONTRACT.md
+          - Import behavior: PLUGINS_IMPORT_BEHAVIOR.md
+          - Settings system: PLUGINS_DEV_SETTINGS.md
+          - Data sources: PLUGINS_DEV_DATASOURCES.md
+          - UI components: PLUGINS_DEV_UI_COMPONENTS.md
+          - Config lifecycle: PLUGINS_DEV_CONFIG.md
+        - Frontend development: FRONTEND_DEVELOPMENT.md
+        - Database: DATABASE.md
+        - Settings: SETTINGS_SYSTEM.md
+        - Versions: VERSIONS.md
+        - Icon and type guessing: DEVICE_HEURISTICS.md
+      - API:
+        - Overview: API.md
+        - Devices collection: API_DEVICES.md
+        - Device: API_DEVICE.md
+        - Device field Lock: API_DEVICE_FIELD_LOCK.md
+        - Sessions: API_SESSIONS.md
+        - Settings: API_SETTINGS.md
+        - Events: API_EVENTS.md
+        - Messaging in-app: API_MESSAGING_IN_APP.md
+        - Metrics: API_METRICS.md
+        - Net tools: API_NETTOOLS.md
+        - Online history: API_ONLINEHISTORY.md
+        - Sync: API_SYNC.md
+        - Logs: API_LOGS.md
+        - SSE: API_SSE.md
+        - GraphQL: API_GRAPHQL.md
+        - DB query: API_DBQUERY.md
+        - MCP: API_MCP.md
+        - Tests: API_TESTS.md
+        - SUPERSEDED OLD API Overview: API_OLD.md
+      - Integrations:
+        - Webhook secret: WEBHOOK_SECRET.md
+        - Helper scripts: HELPER_SCRIPTS.md
+
+
+theme:
+  name: material
+  logo: img/netalertx_docs.png  # Reference the favicon here
+  favicon: img/netalertx_docs.png
+  custom_dir: docs/overrides
+  metadata:
+    description: "NetAlertX Documentation - The go-to resource for all things related to NetAlertX."
+    image: "https://raw.githubusercontent.com/netalertx/NetAlertX/main/front/img/netalertx_docs.png"
+  extra:
+    home_hide_sidebar: true
+    analytics:
+      provider: google
+      property: G-KCRSGLP8J2
+    social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/jokob-sk
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/jokobsk/netalertx/
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/NetAlertX
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    # - content.code.select
+    # - content.footnote.tooltips
+    # - content.tabs.link
+    - content.tooltips
+    # - header.autohide
+    # - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    # - navigation.instant
+    # - navigation.instant.prefetch
+    # - navigation.instant.progress
+    # - navigation.prune
+    - navigation.sections
+    - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+    # - toc.integrate
+  palette:
+    - scheme: slate  # Default to dark mode
+      primary: indigo  # Dark blue
+      accent: deep-purple  # Adjust accent color if needed
+      toggle:
+        icon: material/lightbulb
+        name: Switch to light mode
+    - scheme: default  # Light mode (optional)
+      primary: black
+      accent: deep-purple
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to dark mode
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed
+  - pymdownx.details
+  - pymdownx.snippets
+  - pymdownx.blocks.tab
+  - pymdownx.blocks.admonition
+  - pymdownx.blocks.details
+  - pymdownx.mark
+  - pymdownx.tasklist
+  - pymdownx.emoji
+  - pymdownx.magiclink
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+plugins:
+  - gh-admonitions
+  - search
+  - glightbox
+  - gen-files:
+      scripts:
+        - docs/gen_plugin_pages.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - redirects:
+      redirect_maps:
+        'PLUGINS.md': 'PLUGINS_OVERVIEW.md'
+
+# Custom CSS
+extra_css:
+  - stylesheets/custom.css
+  - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css
+
+favicon: /img/netalertx_docs.png

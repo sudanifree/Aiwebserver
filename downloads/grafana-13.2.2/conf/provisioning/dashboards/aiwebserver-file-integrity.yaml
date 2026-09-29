@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: Aiwebserver file integrity
+    orgId: 1
+    folder: Aiwebserver
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /workspaces/Aiwebserver/downloads/grafana-13.2.2/conf/provisioning/dashboards

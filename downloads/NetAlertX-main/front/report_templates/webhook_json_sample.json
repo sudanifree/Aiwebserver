@@ -1,0 +1,135 @@
+[
+  {
+    "headers": {
+      "host": "192.168.1.82:5678",
+      "user-agent": "curl/7.74.0",
+      "accept": "*/*",
+      "content-type": "application/json",
+      "content-length": "872"
+    },
+    "params": {},
+    "query": {},
+    "body": {
+      "username": "NetAlertX",
+      "text": "There are new notifications",
+      "attachments": [
+        {
+          "title": "NetAlertX Notifications",
+          "title_link": "",
+          "text": {
+            "new_devices_meta": {
+                "title": "🆕 New devices",
+                "columnNames": [
+                    "MAC",
+                    "Datetime",
+                    "IP",
+                    "Event Type",
+                    "Device name",
+                    "Comments"
+                ]
+            },
+            "new_devices": [
+              {
+                "MAC": "00:1a:76:e3:26:4a",
+                "Datetime": "2025-01-06 11:05:00+11:00",
+                "IP": "192.168.1.82",
+                "Event Type": "New Device",
+                "Device name": "(unknown) TEST",
+                "Comments": ""
+              }
+            ],
+            "down_devices_meta": {
+                "title": "🔴 Down devices",
+                "columnNames": [
+                    "devName",
+                    "eveMac",
+                    "devVendor",
+                    "eveIp",
+                    "eveDateTime",
+                    "eveEventType"
+                ]
+            },
+            "down_devices": [],
+            "events_meta": {
+              "title": "Events",
+              "columnNames": [
+                "MAC",
+                "Datetime",
+                "IP",
+                "Event Type",
+                "Device name",
+                "Comments"
+              ]
+            },
+            "down_reconnected": [
+              {
+                "devName": "Phone - Moto 82",
+                "eveMac": "74:ac:74:ac:74:ac",
+                "devVendor": "Motorola Mobility LLC, a Lenovo Company",
+                "eveIp": "192.168.1.167",
+                "eveDateTime": "2025-01-11 10:05:01+11:00",
+                "eveEventType": "Down Reconnected"
+              }
+            ],
+            "down_reconnected_meta": {
+              "title": "🔁 Reconnected down devices",
+              "columnNames": [
+                "devName",
+                "eveMac",
+                "devVendor",
+                "eveIp",
+                "eveDateTime",
+                "eveEventType"
+              ]
+            },
+            "events": [
+              {
+                "MAC": "74:ac:74:ac:74:ac",
+                "Datetime": "2023-01-30 22:15:09",
+                "IP": "192.168.1.92",
+                "Event Type": "Disconnected",
+                "Device name": "(name not found)",
+                "Comments": null
+              },
+              {
+                "MAC": "74:ac:74:ac:74:ac",
+                "Datetime": "2023-01-30 22:15:09",
+                "IP": "192.168.1.150",
+                "Event Type": "Disconnected",
+                "Device name": "(name not found)",
+                "Comments": null
+              }
+            ],
+            "plugins_meta": {
+              "title": "🔌 Plugins",
+              "columnNames": [
+                  "plugin",
+                  "objectPrimaryId",
+                  "objectSecondaryId",
+                  "dateTimeChanged",
+                  "watchedValue1",
+                  "watchedValue2",
+                  "watchedValue3",
+                  "watchedValue4",
+                  "status"
+              ]
+            },
+            "plugins": [
+              {
+                "plugin": "ARPSCAN",
+                "objectPrimaryId": "74:ac:74:ac:74:ac",
+                "objectSecondaryId": "192.168.1.114",
+                "dateTimeChanged": "2025-01-11 12:21:00",
+                "watchedValue1": "192.168.1.114",
+                "watchedValue2": "Microsoft Corporation",
+                "watchedValue3": "192.168.1.0/24 --interface=eth1",
+                "watchedValue4": "",
+                "status": "new"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,170 @@
+# How to Set Up Your Network Page
+
+The **Network** page lets you map how devices connect — visually and logically.
+It’s especially useful for planning infrastructure, assigning parent-child relationships, and spotting gaps.
+
+![Network tree details](./img/NETWORK_TREE/Network_Sample.png)
+
+To get started, you’ll need to define at least one root node and mark certain devices as network nodes (like Switches or Routers).
+
+---
+
+Start by creating a root device with the MAC address `Internet`, if the application didn’t create one already.
+This special MAC address (`Internet`) is required for the root network node — no other value is currently supported.
+Set its **Type** to a valid network type — such as `Router` or `Gateway`.
+
+> [!TIP]
+> If you don’t have one, use the [Create new device](./DEVICE_MANAGEMENT.md#dummy-devices) button on the **Devices** page to add a root device.
+
+---
+
+## ⚡ Quick Setup
+
+1. Open the device you want to use as a network node (e.g. a Switch).
+2. Set its **Type** to one of the following:
+   `AP`, `Firewall`, `Gateway`, `PLC`, `Powerline`, `Router`, `Switch`, `USB LAN Adapter`, `USB WIFI Adapter`, `WLAN`
+   *(Or add custom types under **Settings → General → `NETWORK_DEVICE_TYPES`**.)*
+3. Save the device.
+4. Go to the **Network** page — supported device types will appear as tabs.
+5. Use the **Assign** button to connect unassigned devices to a network node.
+6. The connection icon is chosen automatically: devices with a recorded **SSID** get a Wi-Fi icon; otherwise a numeric **Port** (including `0`) gets an Ethernet icon; with neither, a question-mark icon is shown. See [Connection Icons & Line Styles](#connection-icons--line-styles) below for the full rules, including when lines are dashed or dotted.
+
+> [!NOTE]
+> Use [bulk editing](./DEVICES_BULK_EDITING.md) with _CSV Export_ to fix `Internet` root assignments or update many devices at once.
+
+---
+
+## Example: Setting up a `raspberrypi` as a Switch
+
+Let’s walk through setting up a device named `raspberrypi` to act as a network Switch that other devices connect through.
+
+---
+
+### 1. Set Device Type and Parent
+
+- Go to the **Devices** page
+- Open the device detail view for `raspberrypi`
+- In the **Type** dropdown, select `Switch`
+
+![Device details](./img/NETWORK_TREE/Network_Device_Details.png)
+
+- Optionally assign a **Parent Node** (where this device connects to) and the **Relationship type** of the connection.
+  The `nic` relationship type can affect parent notifications — see the setting description and [Notifications documentation](./NOTIFICATIONS.md) for more.
+- A device’s parent MAC will be overwritten by plugins if its current value is any of the following: "null", "(unknown)" "(Unknown)".
+- If you want plugins to be able to overwrite the parent value (for example, when mixing plugins that do not provide parent MACs like `ARPSCAN` with those that do, like `UNIFIAPI`), you must set the setting `NEWDEV_devParentMAC` to None.
+
+![Device details](./img/NETWORK_TREE/Network_Device_Details_Parent.png)
+
+> [!NOTE]
+> Only certain device types can act as network nodes:
+> `AP`, `Firewall`, `Gateway`, `Hypervisor`, `PLC`, `Powerline`, `Router`, `Switch`, `USB LAN Adapter`, `USB WIFI Adapter`, `WLAN`
+> You can add custom types via the `NETWORK_DEVICE_TYPES` setting.
+
+- Click **Save**
+
+---
+
+### 2. Confirm The Device Appears as a Network Node
+
+You can confirm that `raspberrypi` now acts as a network device in two places:
+
+- Navigate to a different device and verify that `raspberrypi` now appears as an option for a **Parent Node**:
+
+![Parent Node dropdown](./img/NETWORK_TREE/Network_Device_ParentDropdown.png)
+
+- Go to the **Network** page — you'll now see a `raspberrypi` tab, meaning it's recognized as a network node (Switch):
+
+![Network page](./img/NETWORK_TREE/Network_Assign.png)
+
+- You can now assign other devices to it.
+
+---
+
+### 3. Assign Connected Devices
+
+- Use the **Assign** button to link other devices (e.g. PCs) to `raspberrypi`.
+- After assigning, connected devices will appear beneath the `raspberrypi` switch node.
+
+![Assigned nodes](./img/NETWORK_TREE/Network_Assigned_Nodes.png)
+
+- Relationship lines may vary in color based on the selected Relationship type. These are editable on the device details page where you can also assign a parent node.
+
+![Hover detail](./img/NETWORK_TREE/Network_tree_setup_hover.png)
+
+> Hovering over devices in the tree reveals connection details and tooltips for quick inspection.
+
+> [!NOTE]
+> Selecting certain relationship types hides the device in the default device views.
+> You can change this behavior by adjusting the `UI_hide_rel_types` setting, which by default is set to `["nic","virtual"]`.
+> This means devices with `devParentRelType` set to `nic` or `virtual` will not be shown.
+> All devices, regardless of relationship type, are always accessible in the **All devices** view.
+
+---
+
+## Connection Icons & Line Styles
+
+Every node's connection icon and the line drawn from it to its parent are computed automatically each time the tree renders, from the device's `devSSID` and `Parent Port` fields, plus its `Relationship type`. None of this is configured directly — set those fields on the device details page (see [step 1](#1-set-device-type-and-parent)) and the tree reflects them.
+
+### Icon: Wi-Fi, Ethernet, or question mark
+
+Checked in this order for every node:
+
+1. **Wi-Fi icon** — the device has a non-empty **SSID** recorded (`devSSID`).
+2. **Ethernet icon** — no SSID, and **Parent Port** holds a numeric value. `0` counts as numeric; a blank or non-numeric port does not.
+3. **Question-mark icon** — neither of the above: no SSID and no numeric port.
+
+> [!NOTE]
+> SSID is checked first. A device with an SSID always gets the Wi-Fi icon, even if it also has a numeric Parent Port set.
+
+### Line style: solid, dashed, or dotted
+
+Checked in this order for each connection (child → parent):
+
+1. **Dotted** — the connection's **Relationship type** is `virtual`, regardless of port or SSID.
+2. **Solid** — not `virtual`, and the child has a numeric Parent Port (the same condition that gives it the Ethernet icon above).
+3. **Dashed** — everything else: typically Wi-Fi connections, or any connection with no port set.
+
+### Line color: by Relationship type
+
+Relationship type also sets the line's color, independent of the style rules above:
+
+| Relationship type | Line color | Line style |
+|---|---|---|
+| `child` (standard connection) | <span style="color:#f39c12">■</span> Yellow (`#f39c12`) | Solid or dashed, per port |
+| `nic` | <span style="color:#dd4b39">■</span> Red (`#dd4b39`) | Solid or dashed, per port |
+| `virtual` | <span style="color:#0060df">■</span> Blue (`#0060df`) | Always dotted |
+| `logical` | <span style="color:#00a65a">■</span> Green (`#00a65a`) | Solid or dashed, per port |
+| unset or any other value | <span style="color:#5B5B66">■</span> Grey (`#5B5B66`) | Solid or dashed, per port |
+
+Hovering over a node in the tree shows its relationship type and other connection details as a tooltip.
+
+## Troubleshooting
+
+If the Network page doesn't load re-set your parent nodes. This can be done with [bulk-edit](./DEVICES_BULK_EDITING.md).
+
+1. [Backup your setup just in case](./BACKUPS.md)
+2. Navigate to **Maintenance -> Multi edit** ( (1), (2) )
+3. Add all devices (3) (clear the cache with the refresh button if you seem to be missing devices in the dropdown (4))
+4. Select None as parent node (5) and save (6)
+
+![Hover detail](./img/NETWORK_TREE/Network_tree_RESET.png)
+
+5. Find now your root Internet Node by searching for "Internet" in the My Devices view
+6. If not found, make sure the `INTRNT` plugin runs and creates the internet device
+7. If above fails, [create a manual device](./DEVICE_MANAGEMENT.md) with the MAC set to `Internet`
+
+![Hover detail](./img/NETWORK_TREE/Network_tree_MANUAL_INTERNET_NODE.png)
+
+7. You should be able to start again to configure your Network view.
+
+---
+
+## ✅ Summary
+
+To configure devices on the **Network** page:
+
+- Ensure a device with MAC `Internet` is set up as the root
+- Assign valid **Type** values to switches, routers, and other supported nodes that represent network devices
+- Use the **Assign** button to connect devices logically to their parent node
+
+Need to reset or undo changes? [Use backups](./BACKUPS.md) or [bulk editing](./DEVICES_BULK_EDITING.md) to manage devices at scale. You can also automate device assignment with [Workflows](./WORKFLOWS.md).

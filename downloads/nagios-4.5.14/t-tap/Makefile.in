@@ -1,0 +1,152 @@
+# Makefile for Nagios tests using libtap
+
+srcdir=@srcdir@
+top_srcdir=@top_srcdir@
+builddir=@builddir@
+
+
+# Source code directories
+BLD_COMMON=../common
+BLD_INCLUDE=../include
+BLD_BASE=../base
+BLD_CGI=../cgi
+BLD_COMMON=../common
+BLD_LIB=../lib
+
+CC=@CC@
+CFLAGS=@CFLAGS@ @DEFS@ -DNSCORE -I$(top_srcdir) -I$(top_srcdir)/include -I$(top_srcdir)/tap/src -I../include -I../lib
+
+TESTS = test_logging
+TESTS += test_events
+TESTS += test_checks
+TESTS += test_commands
+TESTS += test_downtime
+TESTS += test_nagios_config
+TESTS += test_timeperiods
+TESTS += test_macros
+TESTS += test_notifications
+
+XSD_OBJS = $(BLD_CGI)/statusdata-cgi.o $(BLD_CGI)/xstatusdata-cgi.o
+XSD_OBJS += $(BLD_CGI)/objects-cgi.o $(BLD_CGI)/xobjects-cgi.o
+XSD_OBJS += $(BLD_CGI)/comments-cgi.o $(BLD_CGI)/downtime-cgi.o
+XSD_OBJS += $(BLD_CGI)/cgiutils.o ../common/shared.o
+
+TP_OBJS = $(BLD_BASE)/utils.o $(BLD_BASE)/config.o $(BLD_BASE)/macros-base.o
+TP_OBJS += $(BLD_BASE)/objects-base.o $(BLD_BASE)/xobjects-base.o
+TP_OBJS += ../common/shared.o
+
+CFG_OBJS = $(TP_OBJS)
+CFG_OBJS += $(BLD_BASE)/comments-base.o $(BLD_BASE)/xcomments-base.o
+CFG_OBJS += $(BLD_BASE)/downtime-base.o $(BLD_BASE)/xdowntime-base.o
+CFG_OBJS += $(BLD_BASE)/retention-base.o $(BLD_BASE)/xretention-base.o
+
+
+LDFLAGS=@LDFLAGS@
+LIBS=@LIBS@ ../lib/libnagios.a
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+LOGDIR=@localstatedir@
+CFGDIR=@sysconfdir@
+BINDIR=@bindir@
+CGIDIR=@cgibindir@
+HTMLDIR=@webdir@
+INSTALL=@INSTALL@
+INSTALL_OPTS=@INSTALL_OPTS@
+COMMAND_OPTS=@COMMAND_OPTS@
+STRIP=@STRIP@
+
+CGIURL=@cgiurl@
+HTMURL=@htmurl@
+
+MATHLIBS=-lm
+PERLLIBS=@PERLLIBS@
+PERLXSI_O=@PERLXSI_O@
+SOCKETLIBS=@SOCKETLIBS@
+BROKERLIBS=@BROKERLIBS@
+
+BROKER_LDFLAGS=@BROKER_LDFLAGS@ 
+
+CP=@CP@
+
+# Extra base code
+BASEEXTRALIBS=@BASEEXTRALIBS@
+
+TAPOBJ=../tap/src/tap.o $(SNPRINTF_O)
+
+all: $(TESTS)
+
+########## TESTS ##########
+
+test_logging: test_logging.o $(BLD_BASE)/logging.o $(TAPOBJ) $(BLD_COMMON)/shared.o $(BLD_BASE)/objects-base.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LIBS)
+
+test_events: test_events.o $(BLD_BASE)/events.o $(TAPOBJ) $(BLD_BASE)/utils.o $(BLD_COMMON)/shared.o $(BLD_BASE)/objects-base.o $(BLD_BASE)/checks.o $(BLD_LIB)/squeue.o $(BLD_LIB)/nsutils.o $(BLD_LIB)/kvvec.o $(BLD_LIB)/dkhash.o $(BLD_LIB)/prqueue.o $(BLD_BASE)/config.o $(BLD_LIB)/nspath.o $(BLD_BASE)/macros-base.o xodtemplate.o $(BLD_LIB)/bitmap.o $(BLD_LIB)/skiplist.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LIBS) $(MATHLIBS)
+
+test_checks: test_checks.o $(BLD_BASE)/checks.o $(TAPOBJ) $(BLD_BASE)/utils.o $(BLD_COMMON)/shared.o $(BLD_BASE)/objects-base.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(MATHLIBS) $(LIBS)
+
+test_commands: test_commands.o $(BLD_COMMON)/shared.o $(TAPOBJ)
+	$(CC) $(CFLAGS) -o $@ $^ $(BLD_BASE)/commands.o $(LIBS)
+
+test_downtime: test_downtime.o $(BLD_BASE)/downtime-base.o $(BLD_BASE)/utils.o $(BLD_COMMON)/shared.o $(BLD_BASE)/checks.o $(BLD_BASE)/config.o $(BLD_BASE)/objects-base.o $(BLD_BASE)/macros-base.o xodtemplate.o $(TAPOBJ)
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS) $(MATHLIBS)
+
+test_freshness: test_freshness.o $(BLD_BASE)/freshness.o $(TAPOBJ)
+	$(CC) $(CFLAGS) -o $@ $^
+
+test_nagios_config: test_nagios_config.o $(TAPOBJ) $(BLD_BASE)/utils.o $(BLD_BASE)/config.o xrddefault.o $(BLD_BASE)/comments-base.o $(BLD_BASE)/downtime-base.o $(BLD_COMMON)/shared.o $(BLD_BASE)/objects-base.o xcddefault.o xodtemplate.o $(BLD_BASE)/macros-base.o
+	$(CC) $(CFLAGS) -o $@ $^ $(BROKER_LDFLAGS) $(LDFLAGS) $(MATHLIBS) $(SOCKETLIBS) $(BROKERLIBS) $(LIBS)
+
+test_timeperiods: test_timeperiods.o $(TP_OBJS) $(TAPOBJ)
+	$(CC) $(CFLAGS) -o $@ $^ $(BROKER_LDFLAGS) $(LDFLAGS) $(MATHLIBS) $(SOCKETLIBS) $(BROKERLIBS) $(LIBS)
+
+test_macros: test_macros.o $(TP_OBJS) $(TAPOBJ)
+	$(CC) $(CFLAGS) -o $@ $^ $(BLD_BASE)/checks.o $(BROKER_LDFLAGS) $(LDFLAGS) $(MATHLIBS) $(SOCKETLIBS) $(LIBS)
+
+test_notifications: test_notifications.o $(BLD_BASE)/notifications.o $(BLD_BASE)/checks.o $(BLD_BASE)/utils.o $(BLD_COMMON)/shared.o $(BLD_BASE)/objects-base.o $(TAPOBJ)
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS) $(MATHLIBS)
+
+test_xsddefault: test_xsddefault.o $(XSD_OBJS) $(TAPOBJ)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+test: $(TESTS) smallconfig var
+	HARNESS_PERL=$(srcdir)/test_each.t perl -MTest::Harness -e '$$Test::Harness::switches=""; runtests(map { "./$$_" } @ARGV)' $(TESTS) 2>&1
+	if command -v valgrind >/dev/null 2>&1; then 	\
+		valgrind ./test_macros;					\
+		valgrind ./test_checks;					\
+	fi
+
+each_test: $(TESTS) smallconfig var
+	@for t in $(TESTS); do ./$$t 2>&1; done
+
+valgrind_test: $(TESTS) smallconfig var
+	@for t in $(TESTS); do valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$$t; done
+
+clean:
+	rm -f core core.* *.o gmon.out $(TESTS)
+	rm -f *~ *.*~
+ifneq ($(srcdir),$(builddir))
+	rm -rf smallconfig var
+endif
+
+distclean: clean
+	rm -f perlxsi.c
+	rm -f Makefile
+
+devclean: distclean
+
+
+
+smallconfig: $(srcdir)/smallconfig
+	cp -r $< $@
+
+var: $(srcdir)/var
+	cp -r $< $@
+
+%.o: $(srcdir)/%.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+%.o: $(srcdir)/../xdata/%.c
+	$(CC) $(CFLAGS) -c -o $@ $<

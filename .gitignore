@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+data/
+.venv/
+.env.cacti
+downloads/grafana-13.2.2.linux-amd64.tar.gz
+downloads/grafana-13.2.2/bin/grafana
+downloads/prometheus-3.15.0.linux-amd64.tar.gz
+downloads/prometheus-3.15.0.linux-amd64/prometheus
+downloads/prometheus-3.15.0.linux-amd64/promtool

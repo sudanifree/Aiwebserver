@@ -1,0 +1,22 @@
+{
+  "app.css": {
+    "src": "public/build-swagger/app.100b65854c05b277e7c3.css",
+    "integrity": "sha384-RHxGdWwUrjawkrv+QiTVNuPRkcUPQPvwNE4BfINZV0nQrkPboVwiql44cMwauOd3 sha512-h+GbdWQa2e7fR6sBIrSmZ3OUylHdRuQJ455oL3dnkhGTEkmucwXmOovzL/nlUz+wvy4wOvvb98d3hcRFLi6Y6w=="
+  },
+  "app.js": {
+    "src": "public/build-swagger/app.5b32ec7dc61d376e182a.js",
+    "integrity": "sha384-QHOuyicaI7g5aV1QNsdBgx8lR56bRLnRHFGnD4+olbqaqRtt6zPtSpv6l0hRyJS8 sha512-Aio4YqWHJNq409o7U5T4A9xvKgYEmqHE+Q+qW0lT+FWIrRf8pG5qiElb+AWJuanzLBgyYI38AUuJO6y4Q6bsMQ=="
+  },
+  "entrypoints": {
+    "app": {
+      "assets": {
+        "css": [
+          "public/build-swagger/app.100b65854c05b277e7c3.css"
+        ],
+        "js": [
+          "public/build-swagger/app.5b32ec7dc61d376e182a.js"
+        ]
+      }
+    }
+  }
+}

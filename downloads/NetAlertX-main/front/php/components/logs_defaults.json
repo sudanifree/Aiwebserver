@@ -1,0 +1,106 @@
+[
+    {
+        "buttons": [
+            {
+                "labelStringCode": "Maint_PurgeLog",
+                "event": "logManage('app.log', 'cleanLog')"
+            },
+            {
+                "labelStringCode": "Maint_RestartServer",
+                "event": "askRestartBackend()"
+            }
+        ],
+    "fileName": "app.log",
+    "filePath": "__NETALERTX_LOG__/app.log",
+        "textAreaCssClass": "logs"
+
+    },
+    {
+        "buttons": [
+            {
+                "labelStringCode": "Maint_PurgeLog",
+                "event": "logManage('app_front.log', 'cleanLog')"
+            }
+        ],
+    "fileName": "app_front.log",
+    "filePath": "__NETALERTX_LOG__/app_front.log",
+        "textAreaCssClass": "logs logs-small"
+    },
+    {
+        "buttons": [
+            {
+                "labelStringCode": "Maint_PurgeLog",
+                "event": "logManage('app.php_errors.log', 'cleanLog')"
+            }
+        ],
+    "fileName": "app.php_errors.log",
+    "filePath": "__NETALERTX_LOG__/app.php_errors.log",
+        "textAreaCssClass": "logs logs-small"
+    },
+    {
+        "buttons": [
+            {
+                "labelStringCode": "Maint_PurgeLog",
+                "event": "logManage('execution_queue.log', 'cleanLog')"
+            }
+        ],
+    "fileName": "execution_queue.log",
+    "filePath": "__NETALERTX_LOG__/execution_queue.log",
+        "textAreaCssClass": "logs logs-small"
+    },
+    {
+        "buttons": [
+            {
+                "labelStringCode": "Maint_PurgeLog",
+                "event": "logManage('nginx-error.log', 'cleanLog')"
+            }
+        ],
+        "fileName": "nginx-error.log",
+        "filePath": "__NETALERTX_LOG__/nginx-error.log",
+        "textAreaCssClass": "logs logs-small"
+    },
+    {
+        "buttons": [
+            {
+                "labelStringCode": "Maint_PurgeLog",
+                "event": "logManage('db_is_locked.log', 'cleanLog')"
+            }
+        ],
+    "fileName": "db_is_locked.log",
+    "filePath": "__NETALERTX_LOG__/db_is_locked.log",
+        "textAreaCssClass": "logs logs-small"
+    },
+    {
+        "buttons": [
+            {
+                "labelStringCode": "Maint_PurgeLog",
+                "event": "logManage('stderr.log', 'cleanLog')"
+            }
+        ],
+    "fileName": "stderr.log",
+    "filePath": "__NETALERTX_LOG__/stderr.log",
+        "textAreaCssClass": "logs logs-small"
+    },
+    {
+        "buttons": [
+            {
+                "labelStringCode": "Maint_PurgeLog",
+                "event": "logManage('IP_changes.log', 'cleanLog')"
+            }
+        ],
+    "fileName": "IP_changes.log",
+    "filePath": "__NETALERTX_LOG__/IP_changes.log",
+        "textAreaCssClass": "logs logs-small"
+    },
+    {
+        "buttons": [
+            {
+                "labelStringCode": "Maint_PurgeLog",
+                "event": "logManage('cron.log', 'cleanLog')"
+            }
+        ],
+    "fileName": "cron.log",
+    "filePath": "__NETALERTX_LOG__/cron.log",
+        "textAreaCssClass": "logs logs-small"
+    }
+]
