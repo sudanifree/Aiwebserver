@@ -17,7 +17,27 @@ Open `http://127.0.0.1:8080`. The dashboard refreshes port status every five sec
 AIWEBSERVER_ALLOWED_PORTS=8080,3306 AIWEBSERVER_PORT=8080 python app.py
 ```
 
+In GitHub Codespaces, launch with `AIWEBSERVER_HOST=0.0.0.0 python app.py`, then open port 8080 from the VS Code Ports view. Keep the forwarded port private. Normal local runs continue to bind to `127.0.0.1`.
+
 The default allowlist contains only the dashboard port. A port marked for review is reported, not automatically closed. On Linux, the current user's permissions may limit which process names or sockets can be inspected.
+
+## Project structure
+
+```text
+app.py                       Flask entry point and HTTP routes
+aiwebserver/config.py        Environment settings and resource limits
+aiwebserver/database.py      SQLite schema and scan-history operations
+aiwebserver/download_scanner.py Safe scan of downloads/ and archive members
+scanner.py                   Reusable byte and stream inspection rules
+file_integrity_exporter.py   Prometheus and Nagios file-integrity metrics
+templates/ and static/       Dashboard HTML, CSS, and JavaScript
+docker/ and compose.cacti.yaml Cacti container setup
+monitoring/                  Prometheus and Nagios integration notes/config
+tests/                       App, scanner, and integrity-monitor tests
+downloads/                   Vendored monitoring software and source archives
+```
+
+The web layer calls persistence and download scanning modules; the standalone scanner contains no HTTP or database code. Third-party downloads remain separate from the application code.
 
 ## Scan behavior
 

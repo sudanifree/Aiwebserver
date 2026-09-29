@@ -21,6 +21,7 @@
       <a class="nav-item active" href="#overview"><span class="nav-icon">◫</span>Overview</a>
       <a class="nav-item" href="#file-scanner"><span class="nav-icon">⌕</span>File scanner</a>
       <a class="nav-item" href="#port-monitor"><span class="nav-icon">⌘</span>Port monitor</a>
+      <a class="nav-item" href="#services"><span class="nav-icon">↗</span>Services</a>
     </nav>
     <div class="sidebar-bottom">
       <div class="local-badge"><span class="pulse-dot"></span><span>LOCAL INSTANCE</span><strong>127.0.0.1:{{ config.get('AIWEBSERVER_PORT', 8080) }}</strong></div>
@@ -44,6 +45,17 @@
       <article class="metric"><div class="metric-top"><span>NEEDS REVIEW</span><span class="metric-icon coral">!</span></div><div class="metric-value" id="flagged-count">0</div><div class="metric-foot">Flagged by local rules</div></article>
       <article class="metric"><div class="metric-top"><span>OPEN PORTS</span><span class="metric-icon blue">⌗</span></div><div class="metric-value" id="ports-count">—</div><div class="metric-foot" id="ports-foot">Checking this device</div></article>
       <article class="metric metric-alert"><div class="metric-top"><span>UNAUTHORIZED</span><span class="metric-icon coral">⌁</span></div><div class="metric-value" id="unauthorized-count">—</div><div class="metric-foot">Outside your allowlist</div></article>
+    </section>
+
+    <section class="panel services-panel" id="services">
+      <div class="panel-heading services-heading"><div><p class="eyebrow">LOCAL MONITORING</p><h2>Service shortcuts</h2></div><span class="history-retention">SERVICES MUST BE RUNNING</span></div>
+      <div class="service-links">
+        <a class="service-link" href="http://127.0.0.1:8081/" target="_blank" rel="noopener noreferrer"><span><strong>Cacti</strong><small>SNMP graphs</small></span><span class="service-arrow" aria-hidden="true">↗</span></a>
+        <a class="service-link" href="http://127.0.0.1/nagios/" target="_blank" rel="noopener noreferrer"><span><strong>Nagios</strong><small>Host monitoring</small></span><span class="service-arrow" aria-hidden="true">↗</span></a>
+        <a class="service-link" href="http://127.0.0.1:9090/graph" target="_blank" rel="noopener noreferrer"><span><strong>Prometheus</strong><small>Metrics and queries</small></span><span class="service-arrow" aria-hidden="true">↗</span></a>
+        <a class="service-link" href="http://127.0.0.1:3000/" target="_blank" rel="noopener noreferrer"><span><strong>Grafana</strong><small>Dashboards</small></span><span class="service-arrow" aria-hidden="true">↗</span></a>
+        <a class="service-link" href="http://127.0.0.1:20211/" target="_blank" rel="noopener noreferrer"><span><strong>NetAlertX</strong><small>Network discovery</small></span><span class="service-arrow" aria-hidden="true">↗</span></a>
+      </div>
     </section>
 
     <section class="content-grid">
