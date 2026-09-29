@@ -1,8 +1,32 @@
 # Aiwebserver
 
-Local-first web security console. The MVP accepts uploads for in-memory inspection, records scan metadata in SQLite, and compares listening ports against an explicit allowlist. It does not execute or keep uploaded files, block ports, or claim to replace antivirus software.
+وحدة تحكم محلية لمراقبة أمن خادم الويب. يوفر المشروع لوحة Flask لفحص الملفات، وسجلًا لنتائج الفحص في SQLite، ومراجعة للمنافذ التي تستمع على الجهاز، إضافة إلى أدوات مراقبة سلامة ملفات المشروع وتشغيل Cacti محليًا عبر Docker.
 
-## Run
+> هذا المشروع أداة فحص أولية قابلة للتفسير، وليس مضاد فيروسات ولا جدارًا ناريًا. لا ينفذ الملفات المرفوعة، ولا يحتفظ بمحتواها، ولا يغلق المنافذ تلقائيًا.
+
+## المحتويات
+
+- [المتطلبات](#المتطلبات)
+- [التشغيل السريع](#التشغيل-السريع)
+- [إعدادات البيئة](#إعدادات-البيئة)
+- [كيف يعمل التطبيق](#كيف-يعمل-التطبيق)
+- [الفحص وقاعدة البيانات](#الفحص-وقاعدة-البيانات)
+- [مراقبة سلامة الملفات](#مراقبة-سلامة-الملفات)
+- [التكامل مع Cacti](#التكامل-مع-cacti)
+- [الاختبارات](#الاختبارات)
+- [بنية المشروع](#بنية-المشروع)
+- [حدود الأمان](#حدود-الأمان)
+
+## المتطلبات
+
+- Python 3.10 أو أحدث.
+- pip وبيئة افتراضية Python.
+- Docker وDocker Compose لتشغيل Cacti فقط.
+- نظام Linux هو البيئة المستهدفة لمراجعة المنافذ وبعض أدوات المراقبة.
+
+## التشغيل السريع
+
+من جذر المشروع:
 
 ```bash
 python3 -m venv .venv
@@ -11,52 +35,152 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Open `http://127.0.0.1:8080`. The dashboard refreshes port status every five seconds. Configure the expected listening ports before launch, for example:
+افتح `http://127.0.0.1:8080`. تعرض الصفحة حالة المنافذ وملخص الفحوصات، وتحدّث الحالة تلقائيًا كل خمس ثوانٍ من خلال `/api/status`.
+
+في GitHub Codespaces يمكن تشغيل التطبيق على جميع الواجهات ثم فتح المنفذ من لوحة VS Code Ports:
 
 ```bash
-AIWEBSERVER_ALLOWED_PORTS=8080,3306 AIWEBSERVER_PORT=8080 python app.py
+AIWEBSERVER_HOST=0.0.0.0 python app.py
 ```
 
-In GitHub Codespaces, launch with `AIWEBSERVER_HOST=0.0.0.0 python app.py`, then open port 8080 from the VS Code Ports view. Keep the forwarded port private. Normal local runs continue to bind to `127.0.0.1`.
+اجعل المنفذ المُعاد توجيهه خاصًا. التشغيل المحلي الافتراضي يربط التطبيق على `127.0.0.1`.
 
-The default allowlist contains only the dashboard port. A port marked for review is reported, not automatically closed. On Linux, the current user's permissions may limit which process names or sockets can be inspected.
+## إعدادات البيئة
 
-## Project structure
+| المتغير | القيمة الافتراضية | الوصف |
+| --- | --- | --- |
+| `AIWEBSERVER_HOST` | `127.0.0.1` | عنوان الاستماع لتطبيق Flask |
+| `AIWEBSERVER_PORT` | `8080` | منفذ لوحة التحكم |
+| `AIWEBSERVER_ALLOWED_PORTS` | قيمة `AIWEBSERVER_PORT` | قائمة منافذ مفصولة بفواصل، مثل `8080,3306` |
+| `AIWEBSERVER_DATABASE` | `data/aiwebserver.db` | مسار قاعدة SQLite |
 
-```text
-app.py                       Flask entry point and HTTP routes
-aiwebserver/config.py        Environment settings and resource limits
-aiwebserver/database.py      SQLite schema and scan-history operations
-aiwebserver/download_scanner.py Safe scan of downloads/ and archive members
-scanner.py                   Reusable byte and stream inspection rules
-file_integrity_exporter.py   Prometheus and Nagios file-integrity metrics
-templates/ and static/       Dashboard HTML, CSS, and JavaScript
-docker/ and compose.cacti.yaml Cacti container setup
-monitoring/                  Prometheus and Nagios integration notes/config
-tests/                       App, scanner, and integrity-monitor tests
-downloads/                   Vendored monitoring software and source archives
-```
-
-The web layer calls persistence and download scanning modules; the standalone scanner contains no HTTP or database code. Third-party downloads remain separate from the application code.
-
-## Scan behavior
-
-The current scanner is a small, explainable set of byte-pattern checks for executable signatures, server-side script extensions, and common command-execution or obfuscation patterns. A clean result means only that these checks did not match; it is not a malware verdict. Files over 10 MiB are flagged. Upload content is held in memory for the request and discarded; only the name, size, SHA-256, findings, and timestamp are written to `data/aiwebserver.db`.
-
-This is an MVP, not a complete XAMPP replacement: it does not bundle Apache, PHP, or MySQL. A production build should integrate maintained malware signatures (for example, ClamAV/YARA), authenticate access to the console, and run behind strict network and upload isolation before exposing it beyond localhost.
-
-## Tests
+مثال:
 
 ```bash
-python3 -m unittest discover -s tests -v
+AIWEBSERVER_HOST=127.0.0.1 \
+AIWEBSERVER_PORT=8080 \
+AIWEBSERVER_ALLOWED_PORTS=8080,3306 \
+python app.py
 ```
 
-## Run Cacti 1.2.31
+المنافذ غير الموجودة في القائمة تظهر بحالة مراجعة فقط. لا يقوم التطبيق بإيقاف أي خدمة. قد تمنع صلاحيات المستخدم الحالي `psutil` من معرفة اسم العملية المالكة لبعض المقابس.
 
-The official Linux archive is in `downloads/`. To run it locally with Apache, MariaDB, RRDtool, and SNMP in Docker:
+## كيف يعمل التطبيق
+
+عند بدء `app.py` يتم إنشاء قاعدة البيانات وتشغيل خيط خلفي يفحص مجلد `downloads/` كل 60 ثانية. الواجهة الرئيسية تعرض المنافذ التي تستمع حاليًا، وملخص الفحوصات، وآخر النتائج المحفوظة، وعدد الملفات القادمة من `downloads/`.
+
+### واجهات HTTP
+
+| الطريقة والمسار | الوظيفة |
+| --- | --- |
+| `GET /` | عرض لوحة التحكم |
+| `GET /api/status` | إعادة حالة المنافذ وملخص الفحوصات بصيغة JSON |
+| `POST /api/scan` | فحص ملف مرفوع دون حفظ محتواه |
+| `POST /api/scan-downloads` | تشغيل فحص فوري لمجلد `downloads/` |
+
+لرفع ملف من الطرفية:
+
+```bash
+curl -F 'file=@./example.php' http://127.0.0.1:8080/api/scan
+```
+
+حد الرفع والفحص هو 10 MiB. الملفات الأكبر تسجل بحالة `review` مع سبب واضح.
+
+## الفحص وقاعدة البيانات
+
+يستخدم `scanner.py` قواعد بسيطة وقابلة للتفسير:
+
+- تواقيع ملفات ELF وWindows PE.
+- امتدادات الملفات التنفيذية أو النصوص البرمجية مثل `.php` و`.cgi` و`.sh` عند فحص الرفع.
+- أنماط تنفيذ أوامر باستخدام مدخلات الطلب.
+- تضمين ملفات عن بعد، وبعض أنماط الإخفاء مثل `base64_decode` و`gzinflate` داخل `eval`.
+
+يقرأ الفاحص البيانات على دفعات، يحسب SHA-256، ويحتفظ في الذاكرة بعينة لا تتجاوز 10 MiB. بعد انتهاء الطلب تهمل البيانات. الذي يحفظ في `data/aiwebserver.db` هو الاسم والحجم والبصمة والحالة والأسباب ووقت الفحص.
+
+يفحص `download_scanner.py` الملفات العادية داخل `downloads/` دون اتباع الروابط الرمزية. يفحص أرشيفات `tar` و`tar.gz` و`tgz` وأعضاءها بحماية من مسارات الخروج وحدود قدرها 10,000 عضو و512 MiB للحجم المفكوك. تستخدم بصمة الحجم ووقت التعديل لتخطي الملف الذي لم يتغير في الفحص الدوري.
+
+الحالة `clear` تعني أن القواعد الحالية لم تجد تطابقًا فقط، وليست حكمًا بأن الملف آمن. للحصول على كشف فعلي للبرمجيات الخبيثة يجب دمج محرك وصيانة توقيعات مثل ClamAV أو YARA.
+
+## مراقبة سلامة الملفات
+
+ينشئ `file_integrity_exporter.py` baseline من SHA-256 للملفات العادية ثم يخدم مؤشرات Prometheus وفحص Nagios:
+
+```bash
+python3 file_integrity_exporter.py
+```
+
+نقاط النهاية:
+
+- `http://127.0.0.1:9110/metrics` لـ Prometheus.
+- `http://127.0.0.1:9110/nagios` لـ Nagios.
+
+يفحص المراقب البيانات الوصفية كل 30 ثانية، ويعيد حساب الهاش العميق كل خمس دقائق. يخزن baseline في `data/file_integrity_baseline.json`. يستثني `.git` وبيئات Python الافتراضية وذاكرات التخزين المؤقت ومجلد `data/` وملفات قواعد البيانات والسجلات. لا يتبع الروابط الرمزية.
+
+توجد تعليمات تكامل Prometheus وGrafana وNagios في [`monitoring/README.md`](monitoring/README.md). لا تعِد إنشاء baseline إلا بعد مراجعة التغييرات المتوقعة:
+
+```bash
+rm data/file_integrity_baseline.json
+python3 file_integrity_exporter.py
+```
+
+## التكامل مع Cacti
+
+يحتوي `downloads/cacti-1.2.31/` على ملفات Cacti، بينما يجهز `Dockerfile.cacti` حاوية Apache وPHP وMariaDB وRRDtool وSNMP. يستخدم Compose مجلدات Docker للحفاظ على ملفات الويب وقاعدة البيانات.
+
+أنشئ ملف `.env.cacti` في جذر المشروع، واجعل كلمة المرور سداسية عشرية فقط لأن `docker/cacti-entrypoint.sh` يتحقق من ذلك:
+
+```dotenv
+CACTI_DB_PASSWORD=0123456789abcdef
+```
+
+شغّل الحاوية:
 
 ```bash
 docker compose --env-file .env.cacti -f compose.cacti.yaml up -d --build
 ```
 
-Open `http://127.0.0.1:8081`. The database and web files persist in Docker volumes. Stop the stack with `docker compose --env-file .env.cacti -f compose.cacti.yaml down`; add `-v` only if you also intend to delete its database and Cacti data.
+افتح `http://127.0.0.1:8081`. لإيقافها مع الإبقاء على البيانات:
+
+```bash
+docker compose --env-file .env.cacti -f compose.cacti.yaml down
+```
+
+استخدم `down -v` فقط عند الرغبة في حذف قاعدة Cacti وبياناته نهائيًا. Cacti مخصص للرسوم البيانية ومقاييس SNMP؛ لا يفحص محتوى الملفات. كما أن Grafana وPrometheus وNetAlertX الموجودة ضمن `downloads/` تبقى مكونات منفصلة عن تطبيق Flask.
+
+## الاختبارات
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+تغطي الاختبارات التطبيق، وقواعد الفحص، وفحص الملفات، ومراقب سلامة الملفات. شغلها من جذر المشروع بعد تثبيت المتطلبات.
+
+## بنية المشروع
+
+```text
+app.py                          نقطة تشغيل Flask ومسارات HTTP
+scanner.py                      قواعد فحص البايتات والتدفقات
+aiwebserver/config.py           إعدادات البيئة والحدود
+aiwebserver/database.py         مخطط SQLite وسجل النتائج
+aiwebserver/download_scanner.py فحص downloads والأرشيفات
+file_integrity_exporter.py      مؤشرات Prometheus وNagios لسلامة الملفات
+templates/ و static/             واجهة لوحة التحكم
+tests/                          اختبارات التطبيق والفاحص والمراقب
+monitoring/                     تعليمات تكامل أدوات المراقبة
+docker/                         نقطة تشغيل Cacti
+compose.cacti.yaml              تعريف خدمة Cacti وVolumes
+Dockerfile.cacti                صورة Apache/PHP/MariaDB/SNMP
+downloads/                      ملفات البرامج الموردة والأرشيفات
+data/                           قاعدة البيانات وملف baseline أثناء التشغيل
+```
+
+طبقة الويب تستدعي طبقة التخزين والفحص، بينما يبقى `scanner.py` مستقلًا عن HTTP وقاعدة البيانات. ملفات البرامج الخارجية في `downloads/` منفصلة عن كود التطبيق.
+
+## حدود الأمان
+
+- لا توجد مصادقة أو صلاحيات مستخدم للوحة التحكم؛ أبقها على localhost أو ضعها خلف طبقة وصول موثوقة.
+- لا تعرض التطبيق مباشرة للإنترنت، خصوصًا عند استخدام `AIWEBSERVER_HOST=0.0.0.0`.
+- نتائج الفحص إرشادية ولا تستبدل ClamAV أو YARA أو مراجعة أمنية.
+- الملفات المرفوعة لا تشغل ولا تحفظ، لكن حد الذاكرة والإعدادات التشغيلية يجب أن يناسبا بيئة الإنتاج.
+- راجع تغييرات baseline قبل اعتمادها، وراقب صلاحيات ملفات SQLite وملف `.env.cacti`.
+- لا يوقف التطبيق المنافذ غير المسموح بها ولا يغير قواعد الجدار الناري.
